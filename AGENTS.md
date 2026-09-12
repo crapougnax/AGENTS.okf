@@ -26,7 +26,37 @@ This repository organizes development standards, architectural patterns, and Git
 
 ---
 
-## 🚀 2. Quick Topic Map
+## ⚡ 2. Default Authorized Commands (Autonomous vs Gated Scope)
+
+To maximize velocity without risking accidental outages or regressions, the AI agent is authorized to proactively run non-destructive diagnostic, audit, and local build/test commands without asking for confirmation.
+
+### 🟢 Autonomous Scope (Allowed by Default — Immediate Execution)
+- **Standard Shell Utilities (Audit & Reading):**
+  - `ls` (`-l`, `-la`, `-lh`, `-R`), `cat`, `head`, `tail` (`-n`, `-f`), `grep` (`-r`, `-i`, `-n`, `-E`), `rg`, `find`, `tree`, `diff`, `stat`, `file`, `wc`, `du` (`-sh`), `df` (`-h`), `ps aux`, `top -l 1`, `lsof -i :<port>`, `netstat`, `pwd`, `which`, `env` (read-only), `jq`, `yq`, `curl -I`, `curl -s -X GET`.
+- **Git Operations (Read-Only):**
+  - `git status`, `git log`, `git diff`, `git branch -a`, `git remote -v`, `git show`, `git tag -l`.
+- **GitHub CLI (`gh`):**
+  - `gh issue list/view/status`, `gh pr list/view/diff/checks/status`, `gh run list/view/watch`, `gh release list/view`, `gh repo view`, `gh auth status`, `gh gist list/view`.
+- **Kubernetes Inspection (`kubectl`):**
+  - `kubectl get <all|pods|svc|deploy|ingress|pvc|nodes|cm|secrets> [-n <ns>] [-o wide|yaml|json]`, `kubectl describe`, `kubectl logs [--tail=N] [-f]`, `kubectl top`, `kubectl cluster-info`, `kubectl kustomize`.
+- **Containers & Compose (`podman` / `docker`):**
+  - `podman ps [-a]`, `docker ps [-a]`, `podman images`, `docker images`, `podman logs`, `docker logs`, `podman inspect`, `docker inspect`, `podman stats --no-stream`, `docker compose ps`, `docker compose logs`, `docker compose config`.
+- **Infrastructure as Code (`terraform` / `tofu`):**
+  - `terraform fmt -check`, `terraform validate`, `terraform plan`, `terraform show`, `terraform state list/show`.
+- **Local Testing & Compilation:**
+  - `bun test`, `bun run build`, `bun run validate`, `yarn test`, `yarn lint`, `npm test`, `tsc --noEmit`, `poetry run pytest`, `cargo check/test`.
+
+### 🛑 Gated Scope (Explicit Human Confirmation Strictly Required)
+- **Database Mutations:** `UPDATE`, `DELETE`, `TRUNCATE`, `DROP TABLE`, `ALTER TABLE` on production/staging databases.
+- **Cluster & Cloud Mutations:** `kubectl delete`, `kubectl apply/patch` directly on live clusters, `kubectl scale`, `terraform apply`.
+- **Container Cleanup:** `podman rm -f`, `docker rm -f`, `docker system prune --volumes`.
+- **Git Modifications:** `git push --force`, **merging Pull Requests** (human decision), deleting remote branches/tags.
+
+👉 *See exhaustive matrix:* [Operational Permissions Matrix](content/infrastructure/operational-permissions-matrix.md)
+
+---
+
+## 🚀 3. Quick Topic Map
 
 | If your immediate task involves... | Load this atomic unit: |
 | :--- | :--- |
@@ -47,7 +77,7 @@ This repository organizes development standards, architectural patterns, and Git
 
 ---
 
-## 📦 3. Importing into External Projects
+## 📦 4. Importing into External Projects
 
 To reuse these rules in an external repository:
 
