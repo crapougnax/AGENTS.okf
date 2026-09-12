@@ -127,6 +127,25 @@ async function validateFile(filePath: string): Promise<ValidationResult> {
     }
   }
 
+  // Detect machine-specific absolute file:// URIs (must never be committed)
+  const absolutePathRegex = /file:\/\/\/Users\/|file:\/\/\/home\/|file:\/\/\/[A-Z]:\//gi;
+  let absMatch;
+  const lines = content.split("\n");
+  for (let i = 0; i < lines.length; i++) {
+    while ((absMatch = absolutePathRegex.exec(lines[i])) !== null) {
+      result.errors.push(`Machine-specific absolute path '${absMatch[0]}...' at line ${i + 1}. Use relative paths instead.`);
+    }
+  }
+
+  // Detect proprietary client/project names that must not leak into public AGPL content
+  const FORBIDDEN_NAMES = ["totalymage", "brados", "brad technology"];
+  const lowerContent = content.toLowerCase();
+  for (const name of FORBIDDEN_NAMES) {
+    if (lowerContent.includes(name)) {
+      result.errors.push(`Proprietary name '${name}' detected. Public AGPL content must use generic examples.`);
+    }
+  }
+
   return result;
 }
 
@@ -158,7 +177,7 @@ async function validateSkillFile(filePath: string): Promise<ValidationResult> {
     }
   }
 
-  // Validate internal links (relative only — file:// links are agent-local, skip)
+  // Validate internal links — also reject absolute file:// URIs
   const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
   let match;
   while ((match = linkRegex.exec(content)) !== null) {
@@ -166,9 +185,14 @@ async function validateSkillFile(filePath: string): Promise<ValidationResult> {
     if (
       targetUrl.startsWith("http://") ||
       targetUrl.startsWith("https://") ||
-      targetUrl.startsWith("file://") ||
       targetUrl.startsWith("#")
     ) {
+      continue;
+    }
+
+    // file:// links are now errors — they should be relative
+    if (targetUrl.startsWith("file://")) {
+      result.errors.push(`Absolute file:// URI '${targetUrl}' in SKILL.md link [${match[1]}]. Use relative paths.`);
       continue;
     }
 
@@ -180,6 +204,25 @@ async function validateSkillFile(filePath: string): Promise<ValidationResult> {
       }
     } catch {
       result.errors.push(`Broken link target '${targetUrl}' in SKILL.md link [${match[1]}].`);
+    }
+  }
+
+  // Detect machine-specific absolute file:// URIs outside of markdown links
+  const absolutePathRegex = /file:\/\/\/Users\/|file:\/\/\/home\/|file:\/\/\/[A-Z]:\//gi;
+  let absMatch;
+  const lines = content.split("\n");
+  for (let i = 0; i < lines.length; i++) {
+    while ((absMatch = absolutePathRegex.exec(lines[i])) !== null) {
+      result.errors.push(`Machine-specific absolute path '${absMatch[0]}...' at line ${i + 1}. Use relative paths instead.`);
+    }
+  }
+
+  // Detect proprietary client/project names
+  const FORBIDDEN_NAMES = ["totalymage", "brados", "brad technology"];
+  const lowerContent = content.toLowerCase();
+  for (const name of FORBIDDEN_NAMES) {
+    if (lowerContent.includes(name)) {
+      result.errors.push(`Proprietary name '${name}' detected. Public AGPL content must use generic examples.`);
     }
   }
 

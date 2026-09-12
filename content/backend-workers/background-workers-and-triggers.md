@@ -7,7 +7,7 @@ tags:
   - workers
   - triggers
   - asynchronous
-  - totalymage
+  - microservices
 timestamp: 2026-09-12T05:00:00.000Z
 category: backend-workers
 status: active
@@ -21,7 +21,7 @@ Heavy tasks, notifications, media transcoding, and cross-system webhooks must ex
 
 ### 1. Separation of Foreground & Background Workloads
 - **Never block HTTP requests:** Foreground API endpoints must return immediate status (e.g. `202 Accepted`) and offload heavy processing to background workers.
-- Services like Totalymage's `api-triggers` or queue consumers listen for published database change events or queue messages and execute jobs in isolation.
+- Background workers (such as `api-triggers` or queue consumers) listen for published database change events or queue messages and execute jobs in isolation.
 
 ### 2. Idempotent Worker Handlers
 - Workers must be strictly **idempotent**: processing the same event or message twice must yield the exact same outcome without creating duplicate records or sending duplicate notifications.

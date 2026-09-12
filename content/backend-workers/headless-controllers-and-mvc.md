@@ -15,7 +15,7 @@ status: active
 
 # Headless Controllers & MVC Separation (CoreApps)
 
-When building complex frontend applications (such as Quatrain Visual Studio or Totalymage admin portals), UI components must remain pure presenters.
+When building complex frontend applications (such as admin portals or data management dashboards), UI components must remain pure presenters.
 
 ## 🧭 Core Directives
 
