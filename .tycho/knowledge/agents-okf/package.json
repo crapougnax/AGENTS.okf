@@ -1,0 +1,7 @@
+{
+  "name": "agents-okf",
+  "version": "1.3.0",
+  "description": "Modular AI agent rules, architecture standards, and operational skills in OKF v0.1",
+  "targets": ["gemini", "claude", "hermes"],
+  "license": "AGPL-3.0"
+}
