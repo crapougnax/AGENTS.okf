@@ -265,7 +265,6 @@ export async function buildGeminiRouter(repoRoot: string): Promise<string> {
 > **Local Authority**: [AGENTS.okf Knowledge Base](file://${repoRoot}/content/index.md)  
 > **GitHub Repository**: https://github.com/crapougnax/AGENTS.okf  
 > **Online Gist Reference**: https://gist.github.com/crapougnax/47971b85aa73dd702f4372a89858111c  
-> **Local Extensions**: Machine-specific local guidelines in [AGENTS_local.md](file://${repoRoot}/../../../.gemini/AGENTS_local.md)
 
 > [!IMPORTANT]
 > **AI Sync Requirement:** The source of truth for all rules is the modular repository [\`AGENTS.okf\`](file://${repoRoot}). Whenever updating rules, edit the corresponding atomic unit under \`content/\` and run \`bun run sync-gist\` to synchronize the personal Gist (\`47971b85aa73dd702f4372a89858111c\`, filename: \`GEMINI_personal.md\`).
