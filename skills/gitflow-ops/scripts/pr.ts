@@ -47,8 +47,13 @@ if (issueNum && !finalBody.includes(`Closes #${issueNum}`) && !finalBody.include
 console.log(`📤 Pushing branch '${currentBranch}' to origin...`);
 run("git", ["push", "-u", "origin", currentBranch]);
 
-console.log("🔍 Checking active milestones...");
-const milestonesRaw = run("env", ["-u", "GH_TOKEN", "-u", "GITHUB_TOKEN", "gh", "api", "repos/:owner/:repo/milestones", "--jq", ".[0].title"], false);
+console.log("🔍 Checking active milestones (open, sorted by due date)...");
+const milestonesRaw = run("env", [
+  "-u", "GH_TOKEN", "-u", "GITHUB_TOKEN",
+  "gh", "api",
+  "repos/:owner/:repo/milestones?state=open&direction=asc&sort=due_on",
+  "--jq", ".[0].title",
+], false);
 const activeMilestone = milestonesRaw ? milestonesRaw.trim() : "";
 
 const prArgs = [

@@ -115,6 +115,25 @@ The agent is fully authorized to run any of the following non-destructive inspec
 | **Python / Poetry** | `poetry run pytest`, `poetry show`, `poetry check` | Run unit tests and audit installed virtualenv packages |
 | **Rust / Cargo** | `cargo check`, `cargo test`, `cargo clippy` | Typecheck, test runner, lint analysis |
 
+### H. Git Local Write Operations (Autonomous — Local Repository Only)
+
+These operations modify only the **local git state** and do not push to any remote. They are authorized by default for autonomous execution.
+
+| Command | Authorized Scope & Purpose |
+| :--- | :--- |
+| `git add <files>` | Stage tracked and untracked files for commit |
+| `git commit -m "<conventional-msg>"` | Create atomic conventional commits locally |
+| `git checkout -b <branch>` | Create and switch to a new feature/fix branch from `develop` |
+| `git checkout <existing-branch>` | Switch between local branches |
+| `git stash` / `git stash pop` | Temporarily shelve and restore uncommitted work |
+| `git stash list` / `git stash show` | Inspect stash stack contents |
+| `git cherry-pick <sha>` | Apply a specific commit locally (not targeting `main`) |
+| `git reset --soft HEAD~1` | Undo last commit while keeping changes staged (local only) |
+| `git rebase -i` (local) | Interactive rebase on local-only branches (never on pushed branches) |
+
+> [!IMPORTANT]
+> **Never push** without explicit human approval when targeting `main`. Pushing to `develop` feature branches is autonomous. Force-push (`--force`) to any remote branch requires explicit confirmation.
+
 ---
 
 ## 🛑 2. Gated Scope (Confirmation Strictly Required Before Execution)

@@ -63,4 +63,7 @@ env -u GH_TOKEN -u GITHUB_TOKEN gh ...
 
 ## 🔗 Related Units
 - [GitFlow Protocol](gitflow-protocol.md)
+- [Conventional Commits Protocol](conventional-commits.md)
+- [SemVer & Monorepo Tagging](semver-and-monorepo-tagging.md)
 - [QA Preview Environments](qa-preview-environments.md)
+- [Operational Permissions Matrix](../infrastructure/operational-permissions-matrix.md)

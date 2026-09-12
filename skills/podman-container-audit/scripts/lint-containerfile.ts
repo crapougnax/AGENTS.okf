@@ -47,6 +47,20 @@ if (!hasOciTitle || !hasOciDesc) {
   warnings.push("Missing standard OCI metadata labels (org.opencontainers.image.title, description, licenses).");
 }
 
+// 4. Detect :latest tag or untagged FROM references
+const fromLines = lines.filter((l) => /^\s*FROM\s+/i.test(l));
+for (const fromLine of fromLines) {
+  const trimmed = fromLine.trim();
+  // Skip AS alias lines that are just stage references
+  const imageRef = trimmed.replace(/\s+AS\s+\S+$/i, "").replace(/^FROM\s+/i, "").trim();
+  if (imageRef === "scratch") continue; // scratch is valid and has no tag
+  if (!imageRef.includes(":") || imageRef.endsWith(":latest")) {
+    errors.push(
+      `Untagged or ':latest' image reference detected in: '${trimmed}'. Always pin to a specific semantic version or digest (e.g. 'node:22.5.1-alpine' or image@sha256:...).`
+    );
+  }
+}
+
 // Summary
 if (errors.length > 0) {
   console.error("❌ Containerfile validation FAILED with errors:");

@@ -1,15 +1,15 @@
-# Index de content — AGENTS.okf Knowledge Base
+# AGENTS.okf Knowledge Base — Content Index
 
-Bienvenue dans la base de directives, patterns d'architecture et protocoles GitFlow au format **Open Knowledge Format (OKF v0.1)**.
+Welcome to the centralized development standards, architecture patterns, and GitFlow protocols repository formatted according to the **Open Knowledge Format (OKF v0.1)**.
 
-Cette base est conçue pour être explorée de façon progressive (**Progressive Disclosure**) par les développeurs et les agents de codage IA afin de ne charger en mémoire que les unités logiques strictement requises par leur tâche en cours.
+This base is designed for **Progressive Disclosure** — developers and AI coding agents load only the specific atomic unit required for their current task, preserving context window budget.
 
-## Catégories
+## Categories
 
-* [methodology](methodology/index.md) - Philosophie logicielle, exigence d'horizon 15 ans, TDD et colocalisation des tests, JSDoc strict, anglais international et règles de qualité SonarQube.
-* [workflow](workflow/index.md) - Protocole GitFlow (develop / main / semver), commits conventionnels, utilisation rigoureuse de la CLI GitHub (`gh`), environnements éphémères de preview QA et modèle de forking 3-tiers.
-* [architecture](architecture/index.md) - Domain-Driven Design (DDD), typage strict sans `as any`, contrats fail-fast, state machines, injection de dépendances, bus de messages `@quatrain/queue-*`, logging structuré et local-first.
-* [backend-workers](backend-workers/index.md) - Architecture d'API REST Express (Totalymage), daemons et workers asynchrones (`api-triggers`), pattern Repository Quatrain (.TYPE, Core.addClass), DDL PostgreSQL minuscules et contrôleurs MVC headless.
-* [frontend-ux](frontend-ux/index.md) - Ergonomie mobile en plein soleil (high-glare, cibles 76px/96px, typographie Space Grotesk/Nunito), tokens de statuts et contraste élevé, hygiène CSS statique et mémoïsation React.
-* [infrastructure](infrastructure/index.md) - Standard Containerfile Podman non-root multi-arch, recettes Docker Compose (.env.dist), manifestes Kubernetes (Totalymage), IaC Terraform multi-cloud (Tycho Traefik v3 HTTP-01), ArgoCD GitOps et matrice de permissions opérationnelles.
-* [knowledge](knowledge/index.md) - Spécifications Open Knowledge Format (OKF v0.1) régissant l'organisation de cette base de connaissances.
+* [methodology](methodology/index.md) - Software engineering philosophy, 15-year maintainability horizon, TDD & test co-location, strict JSDoc, International English standard, and SonarQube quality gates.
+* [workflow](workflow/index.md) - GitFlow protocol (develop / main / semver), conventional commits, strict GitHub CLI (`gh`) usage, ephemeral QA preview environments, and 3-tier forking model.
+* [architecture](architecture/index.md) - Domain-Driven Design (DDD), strict TypeScript (zero `as any`), fail-fast contracts, state machines, dependency injection, `@quatrain/queue-*` message bus, structured logging, secrets management, and local-first architecture.
+* [backend-workers](backend-workers/index.md) - Express REST API architecture (Totalymage), asynchronous background workers (`api-triggers`), Quatrain Repository pattern (`.TYPE`, `Core.addClass`), strict PostgreSQL lowercase DDL, and headless MVC controllers.
+* [frontend-ux](frontend-ux/index.md) - High-glare outdoor mobile UX (76px/96px touch targets, Space Grotesk/Nunito typography), status tokens and high contrast, static CSS hygiene, and React memoization.
+* [infrastructure](infrastructure/index.md) - Non-root multi-arch Containerfile/Podman standard, Docker Compose recipes (`.env.dist`), Kubernetes manifests (Totalymage), multi-cloud Terraform IaC (Tycho + Traefik v3 HTTP-01), ArgoCD GitOps, and operational permissions matrix.
+* [knowledge](knowledge/index.md) - Open Knowledge Format (OKF v0.1) specification governing this knowledge base structure.

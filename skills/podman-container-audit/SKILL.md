@@ -1,6 +1,16 @@
 ---
 name: podman-container-audit
-description: Non-destructive local container and image inspection, and automated Containerfile linting. TRIGGER when checking local running containers, port mappings, or verifying that a Containerfile enforces non-root USER and OCI metadata labels.
+description: Non-destructive local container and image inspection, and automated Containerfile linting scripts.
+triggers:
+  - lint Containerfile
+  - audit container
+  - podman audit
+  - docker audit
+  - check non-root user
+  - OCI labels
+  - FROM latest
+  - local stack audit
+  - running containers
 ---
 
 # Podman Container Audit Skill (`podman-container-audit`)

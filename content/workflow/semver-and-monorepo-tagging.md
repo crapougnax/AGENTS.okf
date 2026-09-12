@@ -43,5 +43,7 @@ git push origin main --tags
 
 ## 🔗 Related Units
 - [GitFlow Protocol](gitflow-protocol.md)
+- [Conventional Commits Protocol](conventional-commits.md)
+- [GitHub CLI Protocol](github-cli-protocol.md)
 - [QA Preview Environments](qa-preview-environments.md)
 - [ArgoCD GitOps & Image Updater](../infrastructure/argocd-gitops-and-updater.md)

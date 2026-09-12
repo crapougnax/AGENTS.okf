@@ -38,6 +38,16 @@ console.log("📥 Checking out and updating 'main' branch...");
 run("git", ["checkout", "main"]);
 run("git", ["pull", "origin", "main"]);
 
+// Guard: verify develop has no unmerged commits ahead of main
+console.log("🔍 Verifying 'develop' has been fully merged into 'main'...");
+run("git", ["fetch", "origin", "develop"]);
+const aheadCount = run("git", ["rev-list", "--count", "main..origin/develop"]);
+if (parseInt(aheadCount, 10) > 0) {
+  console.error(`❌ 'develop' has ${aheadCount} commit(s) not yet merged into 'main'.`);
+  console.error(`   Merge the release PR first, then re-run this script.`);
+  process.exit(1);
+}
+
 console.log(`🏷️ Creating annotated tag: ${semverTag}...`);
 run("git", ["tag", "-a", semverTag, "-m", `Release ${semverTag} - ${notes}`]);
 

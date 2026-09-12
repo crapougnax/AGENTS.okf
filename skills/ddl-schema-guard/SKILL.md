@@ -1,6 +1,16 @@
 ---
 name: ddl-schema-guard
-description: Automated PostgreSQL DDL migration validation. TRIGGER when writing, altering, or reviewing database .sql schema files to enforce strictly lowercase table and column names, eliminate double quotes, and ensure timestamp timezone declarations.
+description: Automated PostgreSQL DDL migration validation scripts enforcing lowercase naming, no quoted identifiers, and timestamp standards.
+triggers:
+  - SQL schema
+  - DDL migration
+  - PostgreSQL
+  - CREATE TABLE
+  - schema file
+  - database migration
+  - lowercase column
+  - quoted identifier
+  - TIMESTAMP timezone
 ---
 
 # PostgreSQL DDL Schema Guard Skill (`ddl-schema-guard`)

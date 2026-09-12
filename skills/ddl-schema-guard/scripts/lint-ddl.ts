@@ -66,6 +66,28 @@ for (let i = 0; i < lines.length; i++) {
   }
 }
 
+// 4. Check each CREATE TABLE block for mandatory standard columns
+const tableBlockRegex = /CREATE\s+TABLE(?:\s+IF\s+NOT\s+EXISTS)?\s+(\w+)\s*\(([^;]*?)(?=\);|\bCREATE\b|\bALTER\b|$)/gis;
+let tableMatch: RegExpExecArray | null;
+while ((tableMatch = tableBlockRegex.exec(content)) !== null) {
+  const tableName = tableMatch[1];
+  const blockContent = tableMatch[2];
+  if (!/\bcreated_at\b/i.test(blockContent)) {
+    warnings.push({
+      line: content.substring(0, tableMatch.index).split("\n").length,
+      message: `Table '${tableName}' is missing standard 'created_at TIMESTAMP WITH TIME ZONE' column.`,
+      snippet: `CREATE TABLE ${tableName} (...)`,
+    });
+  }
+  if (!/\bupdated_at\b/i.test(blockContent)) {
+    warnings.push({
+      line: content.substring(0, tableMatch.index).split("\n").length,
+      message: `Table '${tableName}' is missing standard 'updated_at TIMESTAMP WITH TIME ZONE' column.`,
+      snippet: `CREATE TABLE ${tableName} (...)`,
+    });
+  }
+}
+
 if (errors.length > 0) {
   console.error(`❌ Schema audit FAILED with ${errors.length} errors:`);
   for (const err of errors) {

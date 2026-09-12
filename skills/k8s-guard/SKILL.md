@@ -1,6 +1,16 @@
 ---
 name: k8s-guard
-description: Safe, non-destructive Kubernetes diagnostics and triage. TRIGGER when auditing pod health, investigating crashes (CrashLoopBackOff, OOMKilled), checking warning events, or safely tailing container logs across staging and production clusters.
+description: Safe, non-destructive Kubernetes diagnostics and triage scripts for cluster health and log inspection.
+triggers:
+  - audit pods
+  - kubernetes triage
+  - CrashLoopBackOff
+  - OOMKilled
+  - check pod health
+  - stream logs
+  - kubectl
+  - namespace events
+  - ingress routing
 ---
 
 # Kubernetes Guard Skill (`k8s-guard`)
