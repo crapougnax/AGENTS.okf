@@ -5,6 +5,7 @@ description: "Exploratory specification for deploying Hermes Agent (Nous Researc
 tags: [hermes, agent, nous-research, tycho, skills, automation, specification]
 status: draft
 timestamp: 2026-09-12T09:22:00Z
+updated: 2026-09-12T11:37:00Z
 ---
 
 # RFC-001: Hermes Agent Integration with AGENTS.okf
@@ -12,136 +13,185 @@ timestamp: 2026-09-12T09:22:00Z
 > **Status**: Draft — Exploratory (no code)  
 > **Author**: crapougnax  
 > **Related**: [Hermes Agent (Nous Research)](https://hermes-agent.nousresearch.com/) | [GitHub](https://github.com/NousResearch/hermes-agent)
+> **Target Host**: Jetson Orin Nano Super (`orignax`, SSH + tmux)
 
 ---
 
 ## 1. Context & Motivation
 
 **Hermes Agent** is an open-source, self-hosted AI agent by Nous Research (MIT license) with:
-- **Persistent memory** across sessions
-- **Autonomous skill creation** (the agent learns and generates its own skills)
+- **Persistent memory** across sessions (`~/.hermes/memories/USER.md`)
+- **Autonomous skill creation** via `SKILL.md` files under `~/.hermes/skills/`
 - **Messaging gateway**: Telegram, Discord, Slack, WhatsApp, Signal, Email, CLI
 - **Sandboxed code execution**: local, Docker, SSH, Singularity, Modal
-- **Scheduled jobs** via natural language
+- **Scheduled jobs** via natural language (`~/.hermes/cron/`)
 - **Isolated subagents** for parallel task delegation
-- **Web search, browser automation, vision, image generation, TTS**
+- **Web search, browser automation, vision, image generation, TTS/STT**
+- **Hermes tools**: `terminal`, `read_file`, `write_file`, `patch`, `search_files`, `web_search`, `web_extract`, `browser_navigate`, `vision_analyze`, `delegate_task`, `cronjob`
 
-The opportunity is to combine:
-- **AGENTS.okf** as the agent's operational rules and knowledge base
-- **Tycho** as the container recipe deployment engine
-- **Custom skills** tailored to personal interests and infrastructure needs
+### Current Deployment on orignax
 
-This creates an autonomous home/server agent that manages infrastructure services AND provides personalised intelligence (e.g., music discovery, media curation, monitoring).
+| Spec | Value |
+|:---|:---|
+| **Hardware** | NVIDIA Jetson Orin Nano Super (Engineering Ref) |
+| **OS** | Ubuntu 24.04.5 LTS (Noble), kernel 6.8.12-1021-tegra aarch64 |
+| **RAM** | 7.3 GiB |
+| **Disk** | 456 GiB NVMe (379 GiB free) |
+| **LLM Provider** | xAI Grok 4.3 (remote API) |
+| **Access** | SSH (`crapougnax@orignax`), tmux session `main` |
 
 ---
 
-## 2. Architecture Vision
+## 2. Hermes Skill Architecture (Discovered)
+
+### Skill File Format
 
 ```
-┌─────────────────────────────────────────────────────┐
-│                   Hermes Agent                       │
-│  ┌───────────────┐  ┌──────────────┐  ┌───────────┐ │
-│  │  AGENTS.okf   │  │ Tycho Engine │  │  Custom   │ │
-│  │  (Rules &     │  │ (Compose     │  │  Skills   │ │
-│  │   Knowledge)  │  │  Recipes)    │  │           │ │
-│  └───────┬───────┘  └──────┬───────┘  └─────┬─────┘ │
-│          │                 │                │       │
-│  ┌───────▼─────────────────▼────────────────▼─────┐ │
-│  │            Hermes Persistent Memory             │ │
-│  └─────────────────────────────────────────────────┘ │
-│                         │                            │
-│  ┌──────────────────────▼──────────────────────────┐ │
-│  │          Messaging Gateway                       │ │
-│  │  Telegram │ Discord │ Email │ CLI │ Signal      │ │
-│  └─────────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────┘
-         │                │                │
-    ┌────▼────┐    ┌──────▼──────┐   ┌─────▼─────┐
-    │ Jellyfin │    │   Immich    │   │ Nextcloud  │
-    │ (media)  │    │  (photos)   │   │  (files)   │
-    └──────────┘    └─────────────┘   └───────────┘
+~/.hermes/skills/
+├── <category>/
+│   ├── DESCRIPTION.md              # Category description (optional)
+│   └── <skill-name>/
+│       ├── SKILL.md                 # Skill definition (YAML frontmatter + instructions)
+│       ├── <script>                 # Executable (Python, Bash, etc.)
+│       ├── references/              # Supporting docs (optional)
+│       ├── templates/               # Templates (optional)
+│       └── scripts/                 # Helper scripts (optional)
+```
+
+### SKILL.md Format
+
+```yaml
+---
+name: <skill-name>
+description: "<≤60 chars, one sentence, period-terminated.>"
+version: 0.1.0
+author: <human> + Hermes
+license: MIT
+platforms: [cli, telegram, ...]
+metadata:
+  hermes:
+    tags: [...]
+    related_skills: [...]
+---
+
+# <Skill> Skill
+2-3 sentence intro.
+
+## When to Use       — bulleted triggers + counter-triggers
+## Prerequisites     — env vars, installs, API keys
+## How to Run        — canonical invocation via Hermes tools
+## Quick Reference   — flat command list
+## Procedure         — numbered steps with checkable criteria
+## Pitfalls          — known limits
+## Verification      — how to prove it worked
+```
+
+### Key Conventions
+1. **All commands framed through Hermes tools** — `terminal(command="...", timeout=...)`, not bare shell
+2. **No machine-local paths** — use repo-relative paths only
+3. **Description ≤ 60 chars** — strict enforcement at review
+4. **Scripts as executables** — Python/Bash scripts alongside SKILL.md, invoked via `terminal`
+5. **Env vars in `~/.hermes/.env`** — credentials never hardcoded in skills
+6. **Session-cached** — new skills visible only in new sessions
+
+### Existing Skills on orignax
+
+| Category | Skills |
+|:---|:---|
+| **jellyfin** | `jellyfin` (Python CLI: artists, collections, playlists, search, stats) |
+| **devops** | `sdlc-review` |
+| **research** | `arxiv`, `competitor-news-monitor`, `grounded-citations`, `llm-wiki` |
+| **media** | `gif-search`, `songsee`, `youtube-content` |
+| **productivity** | `airtable`, `box`, `google-workspace`, `maps`, `notion`, `pdf`, `powerpoint`, `xlsx`, ... |
+| **creative** | `architecture-diagram`, `ascii-video`, `design-md`, `manim-video`, `p5js`, `songwriting-and-ai-music` |
+| **software-development** | `codebase-inspection`, `github`, `hermes-agent-skill-authoring`, `test-driven-development`, ... |
+
+---
+
+## 3. SOUL.md — Personality & Rules Injection
+
+The file `~/.hermes/SOUL.md` is the **system prompt** for Hermes. Currently minimal:
+
+> "You are Hermes Agent, built by Nous Research. Be direct..."
+
+**This is where AGENTS.okf rules could be injected.**
+
+### Integration Strategy
+
+Instead of replacing SOUL.md entirely (which would lose Hermes defaults), **append** OKF operational rules as a dedicated section:
+
+```markdown
+# SOUL.md (proposed)
+
+You are Hermes Agent, built by Nous Research. [original content]
+
+---
+
+## Operational Standards (AGENTS.okf)
+
+You follow the development and infrastructure standards from the AGENTS.okf knowledge base.
+
+### Permissions Matrix
+- ✅ Autonomous: `ls`, `cat`, `grep`, `kubectl get/describe/logs`, `podman ps/images/logs`, `git status/log/diff`
+- 🛑 Gated (ask first): `kubectl delete/apply`, `docker rm -f`, database mutations, `git push --force`
+
+### Infrastructure Standards
+- Containers: Rootless Podman, non-root USER, multi-arch (amd64/arm64), `Containerfile` naming
+- Compose: Traefik labels, fail-fast env validation, `.env.dist` templates
+- Logging: Structured JSON, no raw `console.log`
+
+### Refer to AGENTS.okf for detailed fiches:
+- Location: `/home/crapougnax/agents-okf/content/` (if cloned)
+- Remote: https://github.com/crapougnax/AGENTS.okf
 ```
 
 ---
 
-## 3. Skill Categories (Exploratory)
+## 4. Persistent Memory
 
-### 3.1 Infrastructure Skills (Tycho-backed)
-| Skill | Description |
-|:---|:---|
-| `tycho-deploy` | Deploy/update a Compose recipe by name (Jellyfin, Immich, Nextcloud, etc.) |
-| `tycho-status` | Health check: running containers, resource usage, disk space |
-| `tycho-backup` | Trigger backup workflows for volumes and databases |
-| `tycho-update` | Pull latest images, check for security updates, propose upgrade plan |
+Hermes stores user context in `~/.hermes/memories/USER.md`:
+- **Already knows**: Jellyfin library artists, Mattermost webhook, travel preferences
+- **Could learn**: AGENTS.okf conventions, Tycho recipe catalog, infrastructure topology
 
-### 3.2 Media & Entertainment Skills
-| Skill | Description |
-|:---|:---|
-| `jellyfin-playlists` | Read Jellyfin playlists, extract artist/album metadata |
-| `music-discovery` | Cross-reference playlists with upcoming concerts (Songkick, Bandsintown APIs) |
-| `new-releases` | Monitor new releases from favourite artists (Spotify, MusicBrainz) |
-| `media-organise` | Suggest library cleanup, detect duplicates, rename conventions |
-
-### 3.3 Smart Home & Monitoring
-| Skill | Description |
-|:---|:---|
-| `service-monitor` | Periodic health pings to self-hosted services, alert via Telegram/Discord |
-| `ssl-renewal` | Monitor TLS certificate expiry, trigger Let's Encrypt renewal |
-| `dns-check` | Verify DNS records for managed domains |
-
-### 3.4 Knowledge & Productivity
-| Skill | Description |
-|:---|:---|
-| `okf-navigator` | Progressive disclosure of AGENTS.okf knowledge base |
-| `second-brain` | Query the personal OKF second-brain knowledge base |
-| `calendar-sync` | Read Google Calendar, suggest prep or follow-ups |
+Memory is updated automatically during conversations and persists across sessions.
 
 ---
 
-## 4. Hermes Skill Format (Research Needed)
+## 5. Proposed Custom Skills
 
-> **TODO**: Investigate the Hermes skill specification format:
-> - How does Hermes discover and load skills?
-> - What is the skill file structure? (YAML? JSON? Python? TypeScript?)
-> - Can skills reference external tools (MCP servers, APIs)?
-> - How does the autonomous skill creation feature work?
-> - Can we inject AGENTS.okf rules as Hermes "personality" or "system prompt"?
+### 5.1 Tycho Infrastructure Skills
+| Skill | Type | Description |
+|:---|:---|:---|
+| `tycho-status` | Bash | Check running Tycho services via `podman ps` |
+| `tycho-deploy` | Bash | Deploy/update a Tycho recipe |
+| `tycho-backup` | Bash | Trigger backup workflows |
+| `tycho-update` | Bash | Check for image updates, propose upgrade |
 
-### Key Questions
-1. **Skill format compatibility**: Can we generate Hermes-compatible skills from AGENTS.okf SKILL.md definitions?
-2. **Rules injection**: Does Hermes support a `.hermes/` config directory or system prompt that we could populate with OKF rules?
-3. **Tycho integration**: Can Hermes execute shell commands to invoke `tycho deploy <recipe>`?
-4. **Memory seeding**: Can we pre-seed Hermes memory with AGENTS.okf knowledge?
+### 5.2 Media & Entertainment Skills
+| Skill | Type | Description |
+|:---|:---|:---|
+| `jellyfin` | Python | ✅ Already exists — artists, playlists, search |
+| `concert-finder` | Python | Cross-ref Jellyfin artists with Songkick/Bandsintown APIs |
+| `new-releases` | Python | Monitor MusicBrainz/Spotify for new albums from favourites |
 
----
-
-## 5. Deployment Model
-
-### Option A: Hermes Desktop (macOS)
-- Install via `curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash`
-- Configure with local AGENTS.okf checkout
-- Use for personal productivity + media management
-
-### Option B: Hermes Server (Podman/Docker)
-- Deploy as a Tycho recipe alongside Jellyfin, Immich, Nextcloud
-- Hermes manages its sibling containers
-- Access via Telegram/Discord bot
-
-### Option C: Hermes Cloud (Nous Portal)
-- Deploy to Nous Research cloud: `https://portal.nousresearch.com/cloud`
-- Feed AGENTS.okf rules via API/config
+### 5.3 Knowledge & Productivity
+| Skill | Type | Description |
+|:---|:---|:---|
+| `okf-navigator` | Bash | Read and serve AGENTS.okf fiches on demand |
+| `second-brain` | Bash | Query the personal OKF second-brain knowledge base |
 
 ---
 
 ## 6. Next Steps
 
-- [ ] Install Hermes Desktop locally and explore the CLI
-- [ ] Document the skill format and configuration structure
-- [ ] Prototype a simple Tycho skill (deploy/status)
-- [ ] Test rules injection (system prompt or config file)
-- [ ] Prototype a Jellyfin playlist reading skill
-- [ ] Evaluate MCP server compatibility for AGENTS.okf tools
-- [ ] Draft a Tycho recipe for Hermes server deployment
+- [x] Install Hermes Agent on orignax
+- [x] Document skill format and configuration structure
+- [ ] Clone AGENTS.okf to orignax for local file access
+- [ ] Extend SOUL.md with OKF operational rules
+- [ ] Prototype a `tycho-status` skill
+- [ ] Prototype a `concert-finder` skill from Jellyfin data
+- [ ] Test Mattermost webhook delivery for alerts
+- [ ] Evaluate running Ollama locally on Orin Nano for offline inference
 
 ---
 
@@ -149,6 +199,6 @@ This creates an autonomous home/server agent that manages infrastructure service
 
 - [Hermes Agent — Official Site](https://hermes-agent.nousresearch.com/)
 - [Hermes Agent — GitHub](https://github.com/NousResearch/hermes-agent)
-- [Hermes Agent — Documentation](https://hermes-agent.nousresearch.com/docs/)
+- [Hermes Skill Authoring Guide](~/.hermes/skills/software-development/hermes-agent-skill-authoring/SKILL.md)
 - [AGENTS.okf — Knowledge Base](https://github.com/crapougnax/AGENTS.okf)
 - [Tycho — Server Management CLI](https://github.com/crapougnax/tycho)
