@@ -3,6 +3,8 @@
 [![Format: OKF v0.1](https://img.shields.io/badge/format-OKF%20v0.1-blue.svg)](https://okf.md/)
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPLv3-green.svg)](LICENSE)
 [![Engine: Bun](https://img.shields.io/badge/Runtime-Bun%20v1.3+-orange.svg)](https://bun.sh/)
+[![Content: 50 fiches](https://img.shields.io/badge/Content-50%20fiches-purple.svg)](#-content-categories)
+[![Skills: 6](https://img.shields.io/badge/Skills-6%20operational-teal.svg)](#-operational-skills)
 
 **AGENTS.okf** is the centralized, modular knowledge base containing development philosophy, architecture standards, UI/UX ergonomics, and GitFlow protocols for human developers and autonomous AI coding agents (Antigravity, Claude Code, Cursor, Gemini).
 
@@ -19,32 +21,64 @@ AGENTS.okf/
 ├── package.json                              # Bun scripts (validate, build, sync-gist)
 ├── .journal/                                 # Session logs & release changelogs (OKF format)
 ├── bin/
-│   ├── validate.ts                           # OKF v0.1 schema & markdown link checker
+│   ├── validate.ts                           # OKF v0.1 schema, link checker & compliance guards
 │   ├── build.ts                              # Compiles all units into a consolidated Markdown bundle
 │   └── sync-gist.ts                          # Synchronizes updates with the personal GitHub Gist
 ├── content/
 │   ├── index.md                              # Root OKF index
-│   ├── methodology/                          # 15-year horizon, TDD & co-location, JSDoc, English, SonarQube
-│   ├── workflow/                             # GitFlow, commits, gh CLI, SemVer tags, preview QA, 3-tier forking
-│   ├── architecture/                         # DDD, strict typing, fail-fast, state machines, queues, logging, secrets, local-first
-│   ├── backend-workers/                      # Express APIs, background triggers, Quatrain repo, PostgreSQL DDL
-│   ├── frontend-ux/                          # High-glare mobile UX, contrast tokens, static CSS, React memo
-│   ├── infrastructure/                       # Containerfile, Docker Compose, K8s manifests, Terraform, ArgoCD
+│   ├── methodology/                          # 15-year horizon, TDD, JSDoc, English, SonarQube
+│   ├── workflow/                             # GitFlow, commits, gh CLI, SemVer, preview QA, forking
+│   ├── architecture/                         # DDD, typing, fail-fast, FSM, queues, logging, secrets
+│   ├── backend-workers/                      # Express APIs, triggers, Quatrain repo, PostgreSQL DDL
+│   ├── frontend-ux/                          # High-glare mobile UX, contrast tokens, static CSS
+│   ├── infrastructure/                       # Containerfile, Compose, K8s, Terraform, ArgoCD
+│   ├── iot-embedded/                         # Firmware C++, LoRaWAN, telemetry pipeline, deployment
 │   └── knowledge/                            # OKF v0.1 specification
-└── skills/                                   # Operational automation scripts (gitflow-ops, k8s-guard, etc.)
+└── skills/                                   # Operational automation skills (see below)
 ```
 
 ---
 
-## 🛠️ Tooling & Commands
+## 📚 Content Categories
+
+| Category | Fiches | Covers |
+|:---|:---:|:---|
+| **Methodology** | 5 | 15-year maintainability, TDD & co-location, JSDoc, International English, SonarQube gates |
+| **Workflow** | 7 | GitFlow protocol, branch isolation, conventional commits, `gh` CLI, SemVer tagging, preview QA, 3-tier forking |
+| **Architecture** | 9 | DDD, strict typing, fail-fast contracts, secrets management, FSM, DI/DRY, queue streaming, structured logging, local-first |
+| **Backend & Workers** | 5 | Express REST APIs, background triggers, Quatrain repository pattern, PostgreSQL DDL, headless MVC |
+| **Frontend & UX** | 4 | High-glare mobile UX, contrast & status tokens, static CSS hygiene, React memo/performance |
+| **Infrastructure** | 7 | Containerfile/Podman, Docker Compose, K8s manifests, multi-cloud IaC, ArgoCD GitOps, operational permissions |
+| **IoT & Embedded** | 4 | Embedded C++ standards, LoRaWAN protocol & payload, telemetry ingestion pipeline, deployment architecture |
+| **Knowledge** | 1 | OKF v0.1 Open Knowledge Format specification |
+| | **50** | |
+
+---
+
+## 🛠️ Operational Skills
+
+| Skill | Purpose |
+|:---|:---|
+| **`agents-okf`** | Meta-router skill — helps AI agents navigate the OKF knowledge base structure |
+| **`gitflow-ops`** | Automated GitFlow lifecycle: branching, PRs, topic-switch, SemVer releases |
+| **`ddl-schema-guard`** | PostgreSQL DDL migration linter: lowercase naming, no quoted identifiers, timestamp standards |
+| **`k8s-guard`** | Non-destructive Kubernetes diagnostics: safe logs, cluster triage, pod health |
+| **`podman-container-audit`** | Container image inspection, Containerfile linting, local stack audit |
+| **`quatrain-code-audit`** | Validates TypeScript import paths in OKF fiches against 95 known Quatrain/bradtech packages |
+
+---
+
+## 🔧 Tooling & Commands
 
 This repository runs with **[Bun](https://bun.sh/)**:
 
 | Command | Action |
 | :--- | :--- |
-| `bun run validate` | Audits all documents for OKF v0.1 frontmatter conformance and validates all relative links. |
+| `bun run validate` | Audits all documents for OKF v0.1 conformance, validates links, checks for absolute paths and proprietary names. |
 | `bun run build` | Compiles the atomic units into a single consolidated reference Markdown file. |
-| `bun run sync-gist` | Safely updates the upstream personal reference Gist using GitHub CLI with keyring session fallback. |
+| `bun run sync-gist` | Safely updates the upstream personal reference Gist using GitHub CLI. |
+| `bun run skills/quatrain-code-audit/scripts/audit-imports.ts` | Validates TypeScript import paths against the known package registry. |
+| `bun run skills/quatrain-code-audit/scripts/update-registry.ts` | Refreshes `known-packages.json` from local monorepo checkouts. |
 
 ---
 
@@ -63,6 +97,9 @@ Load only relevant atomic documents on demand for your immediate task.
 ```bash
 git submodule add https://github.com/crapougnax/AGENTS.okf .agents/rules
 ```
+
+### 3. Global Gemini Rules
+Copy or symlink `AGENTS.md` to `~/.gemini/GEMINI.md` for system-wide agent instructions.
 
 ---
 
