@@ -28,7 +28,7 @@ flowchart LR
     end
 
     subgraph "3. Enterprise Production Fork (Deployment)"
-        Enterprise["github.com/Quatrain/<repo> (or Totalymage)<br><b>(Private Fork • Production)</b><br>• Real API keys, .tfvars & secrets<br>• Injects proprietary tenant config<br>• Synchronized via git pull upstream"]
+        Enterprise["github.com/<org>/<repo><br><b>(Private Fork • Production)</b><br>• Real API keys, .tfvars & secrets<br>• Injects proprietary tenant config<br>• Synchronized via git pull upstream"]
     end
 
     Upstream -->|Fork public| Personal
@@ -54,7 +54,7 @@ flowchart LR
   upstream  https://github.com/<org>/<repo>.git      (fetch & push)
   ```
 
-### 3. The Enterprise Production Fork (`Quatrain/<repo>` or `Totalymage/<repo>`)
+### 3. The Enterprise Production Fork (`<org>/<repo>`)
 - Private organization fork used exclusively for production deployment and tenancy operations.
 - Injects real production credentials, Scaleway/AWS tokens, and tenant configurations.
 - Upstream improvements and bug fixes are pulled cleanly via:

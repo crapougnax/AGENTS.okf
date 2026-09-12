@@ -44,9 +44,9 @@ Container packaging across microservices and monorepos adheres to open OCI stand
 ### 4. OCI Metadata Labels
 - Declare standard OCI metadata labels in the final build stage for observability:
   ```dockerfile
-  LABEL org.opencontainers.image.title="Totalymage Backend API"
-  LABEL org.opencontainers.image.description="Express REST API backend for Totalymage"
-  LABEL org.opencontainers.image.source="https://github.com/crapougnax/backend"
+  LABEL org.opencontainers.image.title="My Backend API"
+  LABEL org.opencontainers.image.description="Express REST API backend service"
+  LABEL org.opencontainers.image.source="https://github.com/<org>/<repo>"
   LABEL org.opencontainers.image.licenses="AGPL-3.0"
   ```
 

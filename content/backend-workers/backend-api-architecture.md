@@ -7,7 +7,7 @@ tags:
   - express
   - rest
   - api
-  - totalymage
+  - microservices
 timestamp: 2026-09-12T05:00:00.000Z
 category: backend-workers
 status: active
@@ -15,7 +15,7 @@ status: active
 
 # Backend API Architecture (Express, Middlewares & REST)
 
-Backend HTTP services (such as Totalymage's `api-express` and Quatrain API gateways) follow a clean, layered REST architectural pattern.
+Backend HTTP services follow a clean, layered REST architectural pattern.
 
 ## 🧭 Core Directives
 

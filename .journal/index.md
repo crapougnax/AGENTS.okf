@@ -10,6 +10,7 @@ Entries are ordered reverse-chronologically (newest first). Each entry follows t
 
 | Version | Date | Entry | Summary |
 | :--- | :--- | :--- | :--- |
+| **v1.2.0** | 2026-09-12 | [v1.2.0 — IoT/LoRaWAN, Code Audit & Compliance](2026-09-12-v1.2.0-iot-lorawan-code-audit-compliance.md) | 4 IoT/LoRaWAN fiches, quatrain-code-audit skill (95 packages), proprietary name guards, import path fixes |
 | **v1.1.0** | 2026-09-12 | [v1.1.0 — Operational Skills, Governance & Bug Fixes](2026-09-12-v1.1.0-operational-skills-and-governance.md) | 4 operational skills, secrets fiche, permissions §H, version increment matrix, 4 script bug fixes, journal system |
 | **v1.0.0** | 2026-09-12 | [v1.0.0 — Knowledge Base Initialisation](2026-09-12-v1.0.0-knowledge-base-initialisation.md) | 45 atomic OKF content units, validation/build/sync tooling, automated test suite, agent entry points |
 

@@ -1,19 +1,19 @@
 ---
 type: standard
-title: Kubernetes Manifests & Deployments (Totalymage Architecture)
+title: Kubernetes Manifests & Deployments
 description: Structure and standards for production Kubernetes workloads, distinguishing HTTP deployments (api-express) from worker daemon deployments (api-triggers).
 tags:
   - kubernetes
   - k8s
   - deployment
   - services
-  - totalymage
+  - microservices
 timestamp: 2026-09-12T05:00:00.000Z
 category: infrastructure
 status: active
 ---
 
-# Kubernetes Manifests & Deployments (Totalymage Architecture)
+# Kubernetes Manifests & Deployments
 
 In production Kubernetes environments, microservices are separated into distinct Deployments and Services corresponding to their operational profile.
 

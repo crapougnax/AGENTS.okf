@@ -55,7 +55,7 @@ Add an `AGENTS.md` in your project with links to this repository:
 ```markdown
 # Agent Directives Pointer
 This project follows the standards in AGENTS.okf.
-- Root Index: [AGENTS.okf Index](file:///Users/crapougnax/CODE/CRAPOUGNAX/AGENTS.okf/content/index.md)
+- Root Index: [AGENTS.okf Index](content/index.md)
 Load only relevant atomic documents on demand for your immediate task.
 ```
 
