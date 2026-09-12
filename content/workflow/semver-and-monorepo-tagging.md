@@ -41,6 +41,27 @@ git push origin main --tags
 - Package managers (NPM, GitHub Packages) distribute releases under specific dist-tags (`latest`, `beta`, `latest-dev`, `prXX`).
 - Dist-tags must be isolated per package identifier and never applied globally across unrelated monorepo packages.
 
+### 4. Version Increment Decision Matrix
+
+The version increment **MUST** be determined based on the nature of changes being released, not arbitrarily chosen:
+
+| Increment | Condition | Examples |
+| :--- | :--- | :--- |
+| **Patch** (`X.Y.Z+1`) | **Bugfixes only** — no new features, no API changes, no new files introducing new capabilities | Fix milestone sort order, fix regex false positive, correct typo in documentation |
+| **Minor** (`X.Y+1.0`) | **New features or capabilities** — new scripts, new governance fiches, new configuration options, extended functionality | Add new skill, add new OKF content fiche, extend validator to cover new file types |
+| **Major** (`X+1.0.0`) | **Breaking changes** — removed or renamed APIs, incompatible schema changes, dropped support for a major dependency | Restructure content directory hierarchy, change YAML frontmatter schema, rename mandatory fields |
+
+> [!IMPORTANT]
+> **When in doubt, always ask the user.** An AI agent MUST NOT unilaterally decide between minor and major bumps. Present the changelog summary and ask the user to confirm the appropriate increment level before tagging.
+
+**Decision flow for AI agents:**
+1. List all commits since the last tag: `git log $(git describe --tags --abbrev=0)..HEAD --oneline`
+2. Classify each commit as `fix`, `feat`, `refactor`, `docs`, `chore`, etc.
+3. If **any** commit is `feat` → minimum **minor** bump.
+4. If **all** commits are `fix`/`docs`/`chore` → **patch** bump.
+5. If **any** commit introduces breaking changes → **major** bump. Always confirm with user.
+6. Present the classification to the user and request explicit approval of the version number.
+
 ## 🔗 Related Units
 - [GitFlow Protocol](gitflow-protocol.md)
 - [Conventional Commits Protocol](conventional-commits.md)

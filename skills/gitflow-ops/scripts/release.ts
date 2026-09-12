@@ -42,7 +42,8 @@ run("git", ["pull", "origin", "main"]);
 console.log("🔍 Verifying 'develop' has been fully merged into 'main'...");
 run("git", ["fetch", "origin", "develop"]);
 const aheadCount = run("git", ["rev-list", "--count", "main..origin/develop"]);
-if (parseInt(aheadCount, 10) > 0) {
+const parsed = parseInt(aheadCount, 10);
+if (isNaN(parsed) || parsed > 0) {
   console.error(`❌ 'develop' has ${aheadCount} commit(s) not yet merged into 'main'.`);
   console.error(`   Merge the release PR first, then re-run this script.`);
   process.exit(1);

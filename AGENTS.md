@@ -74,6 +74,7 @@ To maximize velocity without risking accidental outages or regressions, the AI a
 | **Kubernetes Workloads & Scaling** | [Kubernetes Manifests & Deployments](content/infrastructure/k8s-manifests-and-deployments.md) |
 | **Multi-Cloud IaC, Traefik & TLS** | [Multi-Cloud K8s & Terraform IaC](content/infrastructure/k8s-multi-cloud-iac.md) |
 | **Operational Command Permissions** | [Operational Permissions Matrix](content/infrastructure/operational-permissions-matrix.md) |
+| **Secrets, `.env` files, or ConfigMaps** | [Secrets & Environment Variable Management](content/architecture/secrets-and-env-management.md) |
 
 ---
 

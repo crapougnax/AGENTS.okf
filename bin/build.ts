@@ -39,6 +39,7 @@ const CATEGORIES = [
       "domain-driven-design.md",
       "strict-typing-and-interfaces.md",
       "fail-fast-contracts.md",
+      "secrets-and-env-management.md",
       "finite-state-machines.md",
       "dependency-injection-and-dry.md",
       "queue-and-event-streaming.md",
