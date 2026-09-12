@@ -7,6 +7,8 @@
   "scripts": {
     "validate": "bun run bin/validate.ts",
     "build": "bun run bin/build.ts",
+    "sync:local": "bun run bin/sync-local.ts",
+    "sync:gist": "bun run bin/sync-gist.ts",
     "sync-gist": "bun run bin/sync-gist.ts",
     "test": "bun run validate"
   },
