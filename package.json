@@ -1,12 +1,14 @@
 {
   "name": "@crapougnax/agents.okf",
-  "version": "1.2.0",
+  "version": "1.3.0-preview.1",
   "description": "Modular AI Agent instructions, architecture standards, and GitFlow protocols in OKF v0.1 format",
   "private": true,
   "type": "module",
   "scripts": {
     "validate": "bun run bin/validate.ts",
     "build": "bun run bin/build.ts",
+    "sync:local": "bun run bin/sync-local.ts",
+    "sync:gist": "bun run bin/sync-gist.ts",
     "sync-gist": "bun run bin/sync-gist.ts",
     "test": "bun run validate"
   },
