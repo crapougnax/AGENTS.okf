@@ -46,3 +46,4 @@ Asynchronous communication between microservices, background processors, and tel
 ## 🔗 Related Units
 - [Structured Logging Standards](structured-logging.md)
 - [Background Workers & Triggers](../backend-workers/background-workers-and-triggers.md)
+- [Telemetry Ingestion Pipeline](../iot-embedded/telemetry-ingestion-pipeline.md)
