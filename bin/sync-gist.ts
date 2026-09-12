@@ -3,7 +3,7 @@ import { spawn } from "node:child_process";
 import { buildConsolidatedMarkdown } from "./build.ts";
 
 const GIST_ID = "47971b85aa73dd702f4372a89858111c";
-const GIST_FILENAME = "GEMINI_personal.md";
+const GIST_FILENAME = "AGENTS.md";
 
 async function syncGist() {
   console.log("🔨 Compiling consolidated Markdown bundle from AGENTS.okf...");
