@@ -4,7 +4,10 @@
  *
  * Scans OKF markdown fiches for TypeScript/JavaScript code blocks,
  * extracts import statements, and validates package specifiers against
- * the real Quatrain Core and bradtech-oss monorepo registries.
+ * the committed `known-packages.json` static registry.
+ *
+ * No local monorepo checkout required at audit time.
+ * To refresh the registry: `bun run skills/quatrain-code-audit/scripts/update-registry.ts`
  *
  * Usage:
  *   bun run skills/quatrain-code-audit/scripts/audit-imports.ts [path/to/file.md]
@@ -13,22 +16,11 @@
  */
 
 import { readdir, readFile, stat } from 'node:fs/promises'
-import { join, resolve, relative, dirname, basename } from 'node:path'
+import { join, resolve, relative } from 'node:path'
 
 const REPO_ROOT = resolve(import.meta.dir, '..', '..', '..')
 const CONTENT_ROOT = join(REPO_ROOT, 'content')
-
-// Monorepo locations — discovered relative to CODE_ROOT (two levels above AGENTS.okf)
-// Override with env vars QUATRAIN_CORE_PATH / BRADTECH_OSS_PATH for non-standard layouts
-const CODE_ROOT = resolve(REPO_ROOT, '..', '..')
-const QUATRAIN_CORE_PACKAGES = resolve(
-   process.env.QUATRAIN_CORE_PATH || join(CODE_ROOT, 'QUATRAIN', 'Core'),
-   'packages',
-)
-const BRADTECH_OSS_PACKAGES = resolve(
-   process.env.BRADTECH_OSS_PATH || join(CODE_ROOT, 'BRAD2026', 'bradtech-oss'),
-   'packages',
-)
+const REGISTRY_PATH = resolve(import.meta.dir, '..', 'known-packages.json')
 
 interface ImportViolation {
    file: string
@@ -38,34 +30,28 @@ interface ImportViolation {
 }
 
 /**
- * Discovers all real package names from a monorepo packages/ directory.
+ * Loads the static known-packages.json registry and flattens all entries into a Set.
  */
-async function discoverPackageNames(packagesDir: string): Promise<Set<string>> {
-   const names = new Set<string>()
-   try {
-      const entries = await readdir(packagesDir, { withFileTypes: true })
-      for (const entry of entries) {
-         if (!entry.isDirectory()) continue
-         const pkgJsonPath = join(packagesDir, entry.name, 'package.json')
-         try {
-            const raw = await readFile(pkgJsonPath, 'utf-8')
-            const pkg = JSON.parse(raw)
-            if (pkg.name && typeof pkg.name === 'string') {
-               names.add(pkg.name)
-            }
-         } catch {
-            // No package.json or invalid — skip
-         }
+async function loadKnownPackages(): Promise<{ all: Set<string>; sources: Record<string, string[]> }> {
+   const raw = await readFile(REGISTRY_PATH, 'utf-8')
+   const registry = JSON.parse(raw)
+   const all = new Set<string>()
+   const sources: Record<string, string[]> = {}
+
+   for (const [key, value] of Object.entries(registry)) {
+      if (key.startsWith('$') || key === 'generatedAt') continue
+      const pkgs = value as string[]
+      sources[key] = pkgs
+      for (const pkg of pkgs) {
+         all.add(pkg)
       }
-   } catch {
-      // Directory doesn't exist — skip
    }
-   return names
+
+   return { all, sources }
 }
 
 /**
  * Extracts TypeScript/JavaScript fenced code blocks from markdown content.
- * Returns array of { startLine, code } tuples.
  */
 function extractCodeBlocks(content: string): Array<{ startLine: number; code: string }> {
    const blocks: Array<{ startLine: number; code: string }> = []
@@ -78,7 +64,7 @@ function extractCodeBlocks(content: string): Array<{ startLine: number; code: st
       const line = lines[i]
       if (!inBlock && /^```(?:typescript|ts|javascript|js)\s*$/i.test(line.trim())) {
          inBlock = true
-         blockStart = i + 1 // 0-indexed, next line is first code line
+         blockStart = i + 1
          blockLines = []
       } else if (inBlock && line.trim() === '```') {
          blocks.push({ startLine: blockStart, code: blockLines.join('\n') })
@@ -94,7 +80,6 @@ function extractCodeBlocks(content: string): Array<{ startLine: number; code: st
 
 /**
  * Extracts import specifiers from a code block.
- * Matches: import { X } from 'pkg' and import X from 'pkg'
  */
 function extractImports(code: string, blockStartLine: number): Array<{ line: number; specifier: string }> {
    const imports: Array<{ line: number; specifier: string }> = []
@@ -105,7 +90,7 @@ function extractImports(code: string, blockStartLine: number): Array<{ line: num
       if (match) {
          const specifier = match[1] || match[2]
          if (specifier) {
-            imports.push({ line: blockStartLine + i + 1, specifier }) // 1-indexed
+            imports.push({ line: blockStartLine + i + 1, specifier })
          }
       }
    }
@@ -115,8 +100,6 @@ function extractImports(code: string, blockStartLine: number): Array<{ line: num
 
 /**
  * Resolves a scoped package import to its base package name.
- * e.g. '@quatrain/queue-mqtt' stays as-is,
- *      '@quatrain/core/types' becomes '@quatrain/core'
  */
 function resolveBasePackage(specifier: string): string {
    if (specifier.startsWith('@')) {
@@ -128,44 +111,8 @@ function resolveBasePackage(specifier: string): string {
    return specifier
 }
 
-async function auditFile(
-   filePath: string,
-   knownPackages: Set<string>,
-): Promise<ImportViolation[]> {
-   const violations: ImportViolation[] = []
-   const content = await readFile(filePath, 'utf-8')
-   const relPath = relative(REPO_ROOT, filePath)
-   const blocks = extractCodeBlocks(content)
-
-   for (const block of blocks) {
-      const imports = extractImports(block.code, block.startLine)
-
-      for (const imp of imports) {
-         // Skip relative imports
-         if (imp.specifier.startsWith('.') || imp.specifier.startsWith('/')) continue
-
-         // Skip non-scoped third-party packages (dotenv, mqtt, etc.)
-         if (!imp.specifier.startsWith('@quatrain/') && !imp.specifier.startsWith('@bradtech')) continue
-
-         const basePkg = resolveBasePackage(imp.specifier)
-         if (!knownPackages.has(basePkg)) {
-            // Try to suggest a close match
-            const suggestion = findClosestMatch(basePkg, knownPackages)
-            violations.push({
-               file: relPath,
-               line: imp.line,
-               importPath: basePkg,
-               suggestion,
-            })
-         }
-      }
-   }
-
-   return violations
-}
-
 /**
- * Finds the closest matching package name using simple substring/edit distance heuristics.
+ * Finds the closest matching package name using substring heuristics.
  */
 function findClosestMatch(target: string, known: Set<string>): string | undefined {
    const parts = target.split('/')
@@ -180,7 +127,6 @@ function findClosestMatch(target: string, known: Set<string>): string | undefine
       if (!pkg.startsWith(scope + '/')) continue
       const pkgName = pkg.split('/')[1]
 
-      // Simple common substring scoring
       let score = 0
       const shorter = name.length < pkgName.length ? name : pkgName
       const longer = name.length < pkgName.length ? pkgName : name
@@ -199,6 +145,38 @@ function findClosestMatch(target: string, known: Set<string>): string | undefine
    return bestScore >= 3 ? best : undefined
 }
 
+async function auditFile(
+   filePath: string,
+   knownPackages: Set<string>,
+): Promise<ImportViolation[]> {
+   const violations: ImportViolation[] = []
+   const content = await readFile(filePath, 'utf-8')
+   const relPath = relative(REPO_ROOT, filePath)
+   const blocks = extractCodeBlocks(content)
+
+   for (const block of blocks) {
+      const imports = extractImports(block.code, block.startLine)
+
+      for (const imp of imports) {
+         if (imp.specifier.startsWith('.') || imp.specifier.startsWith('/')) continue
+         if (!imp.specifier.startsWith('@quatrain/') && !imp.specifier.startsWith('@bradtech')) continue
+
+         const basePkg = resolveBasePackage(imp.specifier)
+         if (!knownPackages.has(basePkg)) {
+            const suggestion = findClosestMatch(basePkg, knownPackages)
+            violations.push({
+               file: relPath,
+               line: imp.line,
+               importPath: basePkg,
+               suggestion,
+            })
+         }
+      }
+   }
+
+   return violations
+}
+
 async function collectMarkdownFiles(dir: string): Promise<string[]> {
    const files: string[] = []
    const entries = await readdir(dir, { withFileTypes: true })
@@ -206,17 +184,9 @@ async function collectMarkdownFiles(dir: string): Promise<string[]> {
       const fullPath = join(dir, entry.name)
       if (entry.isDirectory()) {
          files.push(...(await collectMarkdownFiles(fullPath)))
-      } else if (entry.name.endsWith('.md') && entry.name !== 'index.md') {
+      } else if (entry.name.endsWith('.md')) {
          files.push(fullPath)
       }
-   }
-   // Also check index.md files that might have code examples
-   const indexPath = join(dir, 'index.md')
-   try {
-      await stat(indexPath)
-      files.push(indexPath)
-   } catch {
-      // no index.md
    }
    return files
 }
@@ -226,14 +196,13 @@ async function collectMarkdownFiles(dir: string): Promise<string[]> {
 async function main() {
    console.log('🔬 Quatrain Code Example Audit — Import Path Validator\n')
 
-   // 1. Build known package registry
-   console.log('📦 Discovering package registries...')
-   const quatrainPkgs = await discoverPackageNames(QUATRAIN_CORE_PACKAGES)
-   const bradtechPkgs = await discoverPackageNames(BRADTECH_OSS_PACKAGES)
-   const allKnown = new Set([...quatrainPkgs, ...bradtechPkgs])
+   // 1. Load static registry
+   console.log('📦 Loading known-packages.json registry...')
+   const { all: allKnown, sources } = await loadKnownPackages()
 
-   console.log(`   @quatrain/*: ${quatrainPkgs.size} packages`)
-   console.log(`   @bradtech/*: ${bradtechPkgs.size} packages`)
+   for (const [label, pkgs] of Object.entries(sources)) {
+      console.log(`   ${label}: ${pkgs.length} packages`)
+   }
    console.log(`   Total known: ${allKnown.size} packages\n`)
 
    // 2. Determine files to audit

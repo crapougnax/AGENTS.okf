@@ -1,6 +1,6 @@
 ---
 name: quatrain-code-audit
-description: Validates TypeScript code examples in OKF markdown fiches against the real Quatrain Core and bradtech-oss package registries, catching incorrect import paths, non-existent packages, and wrong exported symbol names.
+description: Validates TypeScript code examples in OKF markdown fiches against the Quatrain Core, CoreUX, and bradtech-oss package registries using a committed static registry. No local monorepo checkout required at audit time.
 triggers:
   - import validation
   - code example audit
@@ -12,7 +12,7 @@ triggers:
 
 # Quatrain Code Example Audit Skill (`quatrain-code-audit`)
 
-This skill extracts TypeScript and JavaScript code blocks from OKF markdown fiches and validates that all `import` statements reference packages that actually exist in the Quatrain Core and bradtech-oss monorepos.
+This skill extracts TypeScript and JavaScript code blocks from OKF markdown fiches and validates that all `import` statements reference packages that actually exist in the Quatrain and bradtech ecosystems.
 
 ## 🧭 Invocations
 
@@ -22,7 +22,7 @@ bun run skills/quatrain-code-audit/scripts/audit-imports.ts
 ```
 - Scans all `.md` files under `content/` for fenced TypeScript/JavaScript code blocks.
 - Extracts all `import { ... } from '...'` statements.
-- Validates each package specifier against the known registry of real packages.
+- Validates each package specifier against the committed `known-packages.json` registry.
 - Reports mismatches with file path, line number, and suggested correction.
 
 ### 2. Audit a Single Fiche
@@ -30,17 +30,35 @@ bun run skills/quatrain-code-audit/scripts/audit-imports.ts
 bun run skills/quatrain-code-audit/scripts/audit-imports.ts content/architecture/queue-and-event-streaming.md
 ```
 
-## 📦 Known Package Registries
+### 3. Refresh the Package Registry
+```bash
+bun run skills/quatrain-code-audit/scripts/update-registry.ts
+```
+Run this when packages are added, removed, or renamed in the source monorepos. Requires local checkout of:
+- `Quatrain/Core` (70 `@quatrain/*` packages)
+- `Quatrain/CoreUX` (13 `@quatrain/ux-*` packages)
+- `bradtech-oss` (12 `@bradtech/*` packages)
 
-The script builds a registry from two sources:
+Override paths with env vars: `QUATRAIN_CORE_PATH`, `QUATRAIN_COREUX_PATH`, `BRADTECH_OSS_PATH`.
 
-1. **Quatrain Core** (`@quatrain/*`): All workspace packages in `../QUATRAIN/Core/packages/*/package.json`
-2. **bradtech-oss** (`@bradtech/*`, `@bradtech-oss/*`): All workspace packages in `../BRAD2026/bradtech-oss/packages/*/package.json`
+## 📦 Architecture
 
-Any `import from '@quatrain/...'` or `import from '@bradtech/...'` that does not match a known package name will be reported as an error.
+```
+skills/quatrain-code-audit/
+├── SKILL.md                          # This file
+├── known-packages.json               # Static registry (committed, 95 packages)
+└── scripts/
+    ├── audit-imports.ts              # Reads known-packages.json, validates fiches
+    └── update-registry.ts            # Scans local monorepos → regenerates JSON
+```
+
+**Key design:** The audit script (`audit-imports.ts`) reads only the committed `known-packages.json` file — it has **zero dependency on local monorepo checkouts**. This means it works on CI, on other developers' machines, and in any environment where the AGENTS.okf repo is cloned.
+
+The registry updater (`update-registry.ts`) is a separate maintenance script that scans local monorepo directories and regenerates the JSON. Run it periodically when the ecosystem evolves.
 
 ## ⚠️ Limitations
 
-- This skill validates **package names** only, not individual exported symbols (class names, function names).
+- Validates **package names** only, not individual exported symbols (class names, function names).
 - Third-party imports (e.g. `dotenv`, `mqtt`) are skipped.
 - Relative imports (`./`, `../`) are skipped.
+- Only `@quatrain/*` and `@bradtech*` scoped imports are validated.
