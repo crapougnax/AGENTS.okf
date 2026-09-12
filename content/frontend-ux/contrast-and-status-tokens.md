@@ -36,5 +36,5 @@ Dynamic badge backgrounds must strictly enforce readability:
 - Use **dark navy text (`#0f172a`)** on Yellow badges. White text on yellow badges is strictly prohibited due to severe glare wash-out.
 
 ## 🔗 Related Units
-- [High-Glare Mobile UX](/frontend-ux/high-glare-mobile-ux.md)
-- [Static CSS & Interaction Hygiene](/frontend-ux/static-css-and-interaction-hygiene.md)
+- [High-Glare Mobile UX](high-glare-mobile-ux.md)
+- [Static CSS & Interaction Hygiene](static-css-and-interaction-hygiene.md)

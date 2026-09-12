@@ -44,5 +44,5 @@ Code readability and developer experience depend on rigorous, synchronized docum
 - When modifying an existing interface or method signature, you **MUST** update its JSDoc description, `@param` list, and corresponding usage guides immediately in the same git commit.
 
 ## 🔗 Related Units
-- [International English Standard](/methodology/international-english-standard.md)
-- [Maintainability & 15-Year Horizon](/methodology/maintainability-15-year-horizon.md)
+- [International English Standard](international-english-standard.md)
+- [Maintainability & 15-Year Horizon](maintainability-15-year-horizon.md)

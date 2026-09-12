@@ -47,5 +47,5 @@ Supported types:
 - All commit titles and descriptions **MUST** be written in International English.
 
 ## 🔗 Related Units
-- [GitHub CLI Protocol](/workflow/github-cli-protocol.md)
-- [GitFlow Protocol](/workflow/gitflow-protocol.md)
+- [GitHub CLI Protocol](github-cli-protocol.md)
+- [GitFlow Protocol](gitflow-protocol.md)

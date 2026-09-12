@@ -47,5 +47,5 @@ stateDiagram-v2
 - Side effects (sending emails, publishing events, logging) must be triggered asynchronously via post-transition hooks or domain event listeners.
 
 ## 🔗 Related Units
-- [Queue & Event Streaming](/architecture/queue-and-event-streaming.md)
-- [Quatrain Repository Pattern](/backend-workers/quatrain-repository-pattern.md)
+- [Queue & Event Streaming](queue-and-event-streaming.md)
+- [Quatrain Repository Pattern](../backend-workers/quatrain-repository-pattern.md)

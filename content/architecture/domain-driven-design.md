@@ -31,6 +31,6 @@ Applications must be decomposed into logical domain units representing cohesive 
 - No shared ambiguous multi-tenant tables where domains overlap indiscriminately.
 
 ## 🔗 Related Units
-- [Strict Typing & Interfaces](/architecture/strict-typing-and-interfaces.md)
-- [PostgreSQL DDL & Naming Standards](/backend-workers/postgresql-ddl-and-naming.md)
-- [Quatrain Repository Pattern](/backend-workers/quatrain-repository-pattern.md)
+- [Strict Typing & Interfaces](strict-typing-and-interfaces.md)
+- [PostgreSQL DDL & Naming Standards](../backend-workers/postgresql-ddl-and-naming.md)
+- [Quatrain Repository Pattern](../backend-workers/quatrain-repository-pattern.md)

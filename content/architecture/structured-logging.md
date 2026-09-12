@@ -47,5 +47,5 @@ Use the dedicated structured loggers from `@quatrain/log` or `@quatrain/backend`
 - All log messages **MUST** be written in International English.
 
 ## 🔗 Related Units
-- [Queue & Event Streaming](/architecture/queue-and-event-streaming.md)
-- [International English Standard](/methodology/international-english-standard.md)
+- [Queue & Event Streaming](queue-and-event-streaming.md)
+- [International English Standard](../methodology/international-english-standard.md)

@@ -130,6 +130,79 @@ async function validateFile(filePath: string): Promise<ValidationResult> {
   return result;
 }
 
+async function validateSkillFile(filePath: string): Promise<ValidationResult> {
+  const result: ValidationResult = {
+    file: filePath.replace(resolve(import.meta.dir, ".."), ""),
+    errors: [],
+    warnings: [],
+  };
+
+  const content = await readFile(filePath, "utf-8");
+
+  // Skills use a minimal YAML frontmatter: name + description required
+  if (!content.startsWith("---")) {
+    result.errors.push("SKILL.md missing YAML frontmatter (must start with '---').");
+    return result;
+  }
+
+  const { frontmatter } = parseYamlFrontmatter(content);
+  if (!frontmatter) {
+    result.errors.push("SKILL.md has malformed YAML frontmatter.");
+    return result;
+  }
+
+  const requiredSkillKeys = ["name", "description"];
+  for (const key of requiredSkillKeys) {
+    if (!frontmatter[key] || (typeof frontmatter[key] === "string" && frontmatter[key].trim() === "")) {
+      result.errors.push(`SKILL.md missing required frontmatter field '${key}'.`);
+    }
+  }
+
+  // Validate internal links (relative only — file:// links are agent-local, skip)
+  const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  let match;
+  while ((match = linkRegex.exec(content)) !== null) {
+    const targetUrl = match[2];
+    if (
+      targetUrl.startsWith("http://") ||
+      targetUrl.startsWith("https://") ||
+      targetUrl.startsWith("file://") ||
+      targetUrl.startsWith("#")
+    ) {
+      continue;
+    }
+
+    const targetPath = resolve(dirname(filePath), targetUrl);
+    try {
+      const s = await stat(targetPath);
+      if (s.isDirectory()) {
+        await stat(join(targetPath, "index.md"));
+      }
+    } catch {
+      result.errors.push(`Broken link target '${targetUrl}' in SKILL.md link [${match[1]}].`);
+    }
+  }
+
+  return result;
+}
+
+async function getSkillFiles(skillsRoot: string): Promise<string[]> {
+  const skillDirs = await readdir(skillsRoot, { withFileTypes: true });
+  const skillFiles: string[] = [];
+  for (const entry of skillDirs) {
+    if (entry.isDirectory()) {
+      const skillMd = join(skillsRoot, entry.name, "SKILL.md");
+      try {
+        await stat(skillMd);
+        skillFiles.push(skillMd);
+      } catch {
+        // No SKILL.md in this directory — skip silently
+      }
+    }
+  }
+  return skillFiles;
+}
+
 async function main() {
   console.log("🔍 Auditing AGENTS.okf knowledge base conformance...\n");
 
@@ -150,7 +223,30 @@ async function main() {
     }
   }
 
-  console.log(`\n📊 Audit Summary: ${files.length} files scanned | ${totalErrors} errors | ${totalWarnings} warnings.`);
+  // Also validate skills/*/SKILL.md
+  const SKILLS_ROOT = resolve(import.meta.dir, "../skills");
+  try {
+    const skillFiles = await getSkillFiles(SKILLS_ROOT);
+    if (skillFiles.length > 0) {
+      console.log("\n🛠️  Auditing operational skills SKILL.md conformance...\n");
+      for (const skillFile of skillFiles) {
+        const res = await validateSkillFile(skillFile);
+        if (res.errors.length > 0) {
+          totalErrors += res.errors.length;
+          console.error(`❌ ${res.file}:`);
+          for (const err of res.errors) {
+            console.error(`   - Error: ${err}`);
+          }
+        } else {
+          console.log(`✅ ${res.file}`);
+        }
+      }
+    }
+  } catch {
+    // skills/ directory may not exist in minimal installations
+  }
+
+  console.log(`\n📊 Audit Summary: ${files.length} content files scanned | ${totalErrors} errors | ${totalWarnings} warnings.`);
 
   if (totalErrors > 0) {
     process.exit(1);
@@ -163,3 +259,4 @@ main().catch((err) => {
   console.error("Fatal validation error:", err);
   process.exit(1);
 });
+

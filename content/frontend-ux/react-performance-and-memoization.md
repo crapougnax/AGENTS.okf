@@ -41,5 +41,5 @@ In interactive data dashboards, visual modeling studios, and high-density grid i
 - Modifying a single card or field value must only re-render the affected leaf component, leaving the surrounding canvas and sibling cards untouched.
 
 ## 🔗 Related Units
-- [Static CSS & Interaction Hygiene](/frontend-ux/static-css-and-interaction-hygiene.md)
-- [Headless Controllers & MVC Separation](/backend-workers/headless-controllers-and-mvc.md)
+- [Static CSS & Interaction Hygiene](static-css-and-interaction-hygiene.md)
+- [Headless Controllers & MVC Separation](../backend-workers/headless-controllers-and-mvc.md)

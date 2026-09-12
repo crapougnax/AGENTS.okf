@@ -31,5 +31,5 @@ User productivity and field applications require 0ms visual latency, resilient o
 - Temporary network drops or high-latency cellular connections must never freeze, disable, or impede the user interface.
 
 ## 🔗 Related Units
-- [Finite State Machines & BPM](/architecture/finite-state-machines.md)
-- [Quatrain Repository Pattern](/backend-workers/quatrain-repository-pattern.md)
+- [Finite State Machines & BPM](finite-state-machines.md)
+- [Quatrain Repository Pattern](../backend-workers/quatrain-repository-pattern.md)

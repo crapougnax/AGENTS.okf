@@ -31,6 +31,6 @@ Software architectures developed across the ecosystem are built to endure. Code 
 - Write self-documenting code with explicit variable naming, strong typing, and comprehensive JSDoc.
 
 ## 🔗 Related Units
-- [Documentation & JSDoc Standards](/methodology/documentation-and-jsdoc.md)
-- [International English Standard](/methodology/international-english-standard.md)
-- [Strict Typing & Interfaces](/architecture/strict-typing-and-interfaces.md)
+- [Documentation & JSDoc Standards](documentation-and-jsdoc.md)
+- [International English Standard](international-english-standard.md)
+- [Strict Typing & Interfaces](../architecture/strict-typing-and-interfaces.md)

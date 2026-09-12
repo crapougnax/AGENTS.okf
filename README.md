@@ -17,19 +17,21 @@ AGENTS.okf/
 ├── AGENTS.md                                 # Universal entrypoint for AI coding agents
 ├── README.md                                 # Human developer documentation and import guides
 ├── package.json                              # Bun scripts (validate, build, sync-gist)
+├── .journal/                                 # Session logs & release changelogs (OKF format)
 ├── bin/
 │   ├── validate.ts                           # OKF v0.1 schema & markdown link checker
 │   ├── build.ts                              # Compiles all units into a consolidated Markdown bundle
 │   └── sync-gist.ts                          # Synchronizes updates with the personal GitHub Gist
-└── content/
-    ├── index.md                              # Root OKF index
-    ├── methodology/                          # 15-year horizon, TDD & co-location, JSDoc, English, SonarQube
-    ├── workflow/                             # GitFlow, commits, gh CLI, SemVer tags, preview QA, 3-tier forking
-    ├── architecture/                         # DDD, strict typing, fail-fast, state machines, queues, logging, local-first
-    ├── backend-workers/                      # Express APIs, background triggers, Quatrain repo, PostgreSQL DDL
-    ├── frontend-ux/                          # High-glare mobile UX, contrast tokens, static CSS, React memo
-    ├── infrastructure/                       # Containerfile, Docker Compose, K8s manifests, Terraform, ArgoCD
-    └── knowledge/                            # OKF v0.1 specification
+├── content/
+│   ├── index.md                              # Root OKF index
+│   ├── methodology/                          # 15-year horizon, TDD & co-location, JSDoc, English, SonarQube
+│   ├── workflow/                             # GitFlow, commits, gh CLI, SemVer tags, preview QA, 3-tier forking
+│   ├── architecture/                         # DDD, strict typing, fail-fast, state machines, queues, logging, secrets, local-first
+│   ├── backend-workers/                      # Express APIs, background triggers, Quatrain repo, PostgreSQL DDL
+│   ├── frontend-ux/                          # High-glare mobile UX, contrast tokens, static CSS, React memo
+│   ├── infrastructure/                       # Containerfile, Docker Compose, K8s manifests, Terraform, ArgoCD
+│   └── knowledge/                            # OKF v0.1 specification
+└── skills/                                   # Operational automation scripts (gitflow-ops, k8s-guard, etc.)
 ```
 
 ---

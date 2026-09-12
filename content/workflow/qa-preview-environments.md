@@ -43,5 +43,5 @@ flowchart TD
   ```
 
 ## 🔗 Related Units
-- [GitHub CLI Protocol](/workflow/github-cli-protocol.md)
-- [ArgoCD GitOps & Image Updater](/infrastructure/argocd-gitops-and-updater.md)
+- [GitHub CLI Protocol](github-cli-protocol.md)
+- [ArgoCD GitOps & Image Updater](../infrastructure/argocd-gitops-and-updater.md)

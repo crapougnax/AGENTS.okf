@@ -41,5 +41,5 @@ Type safety is a structural requirement. Type assertions and compiler bypasses c
   ```
 
 ## 🔗 Related Units
-- [Fail-Fast Contracts & Configuration](/architecture/fail-fast-contracts.md)
-- [SonarQube Quality Gates](/methodology/sonarqube-quality-gates.md)
+- [Fail-Fast Contracts & Configuration](fail-fast-contracts.md)
+- [SonarQube Quality Gates](../methodology/sonarqube-quality-gates.md)

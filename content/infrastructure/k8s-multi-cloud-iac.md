@@ -37,5 +37,5 @@ Infrastructure as Code (IaC) across multi-cloud Kubernetes deployments (Scaleway
   - `tycho k8s status`: Audit cluster health and certificate statuses.
 
 ## 🔗 Related Units
-- [Three-Tier Forking Model](/workflow/three-tier-forking-model.md)
-- [Kubernetes Manifests & Deployments](/infrastructure/k8s-manifests-and-deployments.md)
+- [Three-Tier Forking Model](../workflow/three-tier-forking-model.md)
+- [Kubernetes Manifests & Deployments](k8s-manifests-and-deployments.md)

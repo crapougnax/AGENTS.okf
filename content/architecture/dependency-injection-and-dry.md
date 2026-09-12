@@ -38,5 +38,5 @@ Code reusability and architectural decoupling ensure that core domain logic rema
 - If the same logic appears in two places, extract it immediately.
 
 ## 🔗 Related Units
-- [Strict Typing & Interfaces](/architecture/strict-typing-and-interfaces.md)
-- [Fail-Fast Contracts & Configuration](/architecture/fail-fast-contracts.md)
+- [Strict Typing & Interfaces](strict-typing-and-interfaces.md)
+- [Fail-Fast Contracts & Configuration](fail-fast-contracts.md)
