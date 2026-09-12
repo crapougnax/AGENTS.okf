@@ -40,5 +40,5 @@ If the user or team pivots to a new topic or urgent fix mid-session:
 4. **Isolate Implementation:** Implement, test, and commit the solution strictly within that dedicated branch.
 
 ## 🔗 Related Units
-- [GitFlow Protocol](/workflow/gitflow-protocol.md)
-- [Conventional Commits Protocol](/workflow/conventional-commits.md)
+- [GitFlow Protocol](gitflow-protocol.md)
+- [Conventional Commits Protocol](conventional-commits.md)

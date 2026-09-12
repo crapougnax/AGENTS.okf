@@ -62,5 +62,5 @@ env -u GH_TOKEN -u GITHUB_TOKEN gh ...
 ```
 
 ## 🔗 Related Units
-- [GitFlow Protocol](/workflow/gitflow-protocol.md)
-- [QA Preview Environments](/workflow/qa-preview-environments.md)
+- [GitFlow Protocol](gitflow-protocol.md)
+- [QA Preview Environments](qa-preview-environments.md)

@@ -47,5 +47,5 @@ Database schemas must remain clean, predictable, and fully portable across SQL c
 - Explicitly store timestamps with time zones: `TIMESTAMP WITH TIME ZONE` (or `TIMESTAMPTZ`).
 
 ## 🔗 Related Units
-- [Quatrain Repository Pattern](/backend-workers/quatrain-repository-pattern.md)
-- [Backend API Architecture](/backend-workers/backend-api-architecture.md)
+- [Quatrain Repository Pattern](quatrain-repository-pattern.md)
+- [Backend API Architecture](backend-api-architecture.md)

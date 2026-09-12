@@ -43,5 +43,5 @@ Systems must fail immediately, loudly, and with actionable diagnostics rather th
 - All infrastructure parameters must be declared explicitly in deployment files (ConfigMaps, Secrets, `.env.dist`).
 
 ## 🔗 Related Units
-- [Strict Typing & Interfaces](/architecture/strict-typing-and-interfaces.md)
-- [Containerfile & Podman Standards](/infrastructure/containerfile-and-podman.md)
+- [Strict Typing & Interfaces](strict-typing-and-interfaces.md)
+- [Containerfile & Podman Standards](../infrastructure/containerfile-and-podman.md)

@@ -51,5 +51,5 @@ For local development stacks, staging sandboxes, and standalone on-premise deplo
   ```
 
 ## 🔗 Related Units
-- [Containerfile, Podman & OCI Standards](/infrastructure/containerfile-and-podman.md)
-- [Kubernetes Manifests & Deployments](/infrastructure/k8s-manifests-and-deployments.md)
+- [Containerfile, Podman & OCI Standards](containerfile-and-podman.md)
+- [Kubernetes Manifests & Deployments](k8s-manifests-and-deployments.md)

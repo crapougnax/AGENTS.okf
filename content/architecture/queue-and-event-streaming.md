@@ -44,5 +44,5 @@ Asynchronous communication between microservices, background processors, and tel
 - Event queue workers must systematically log lifecycle events (connect, message received, ack, retry, error) using structured Quatrain logging (`Queue.info`, `Queue.warn`, `Queue.error`, `Queue.debug`).
 
 ## 🔗 Related Units
-- [Structured Logging Standards](/architecture/structured-logging.md)
-- [Background Workers & Triggers](/backend-workers/background-workers-and-triggers.md)
+- [Structured Logging Standards](structured-logging.md)
+- [Background Workers & Triggers](../backend-workers/background-workers-and-triggers.md)

@@ -55,5 +55,5 @@ All code committed across monorepos and packages must pass automated quality gat
 - When invoking Node.js/Bun `child_process` methods (`spawn`, `exec`, `spawnSync`), explicitly set `{ shell: false }` to prevent command injection vulnerabilities.
 
 ## 🔗 Related Units
-- [Test-Driven Development (TDD)](/methodology/tdd-and-test-co-location.md)
-- [Strict Typing & Interfaces](/architecture/strict-typing-and-interfaces.md)
+- [Test-Driven Development (TDD)](tdd-and-test-co-location.md)
+- [Strict Typing & Interfaces](../architecture/strict-typing-and-interfaces.md)

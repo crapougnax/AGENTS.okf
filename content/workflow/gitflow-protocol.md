@@ -64,7 +64,7 @@ flowchart TD
 - Merge into `main`, then create and push an annotated SemVer tag.
 
 ## 🔗 Related Units
-- [Branch Isolation & Topic Switch](/workflow/branch-isolation-and-topic-switch.md)
-- [Conventional Commits Protocol](/workflow/conventional-commits.md)
-- [GitHub CLI Protocol](/workflow/github-cli-protocol.md)
-- [SemVer & Monorepo Tagging](/workflow/semver-and-monorepo-tagging.md)
+- [Branch Isolation & Topic Switch](branch-isolation-and-topic-switch.md)
+- [Conventional Commits Protocol](conventional-commits.md)
+- [GitHub CLI Protocol](github-cli-protocol.md)
+- [SemVer & Monorepo Tagging](semver-and-monorepo-tagging.md)

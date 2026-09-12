@@ -51,5 +51,5 @@ Container packaging across microservices and monorepos adheres to open OCI stand
   ```
 
 ## 🔗 Related Units
-- [Docker Compose Deployment Recipes](/infrastructure/docker-compose-deployment.md)
-- [Kubernetes Manifests & Deployments](/infrastructure/k8s-manifests-and-deployments.md)
+- [Docker Compose Deployment Recipes](docker-compose-deployment.md)
+- [Kubernetes Manifests & Deployments](k8s-manifests-and-deployments.md)

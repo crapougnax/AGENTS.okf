@@ -50,5 +50,5 @@ Reliability is non-negotiable. Code that is not verified by automated tests does
   ```
 
 ## 🔗 Related Units
-- [SonarQube Quality Gates](/methodology/sonarqube-quality-gates.md)
-- [Strict Typing & Interfaces](/architecture/strict-typing-and-interfaces.md)
+- [SonarQube Quality Gates](sonarqube-quality-gates.md)
+- [Strict Typing & Interfaces](../architecture/strict-typing-and-interfaces.md)

@@ -33,6 +33,6 @@ Continuous delivery across staging and production clusters relies on declarative
 - Leverage `ApplicationSets` to generate multi-environment configurations (staging, production, preview PRs) from a single declarative template.
 
 ## 🔗 Related Units
-- [SemVer & Monorepo Tagging](/workflow/semver-and-monorepo-tagging.md)
-- [QA Preview Environments](/workflow/qa-preview-environments.md)
-- [Kubernetes Manifests & Deployments](/infrastructure/k8s-manifests-and-deployments.md)
+- [SemVer & Monorepo Tagging](../workflow/semver-and-monorepo-tagging.md)
+- [QA Preview Environments](../workflow/qa-preview-environments.md)
+- [Kubernetes Manifests & Deployments](k8s-manifests-and-deployments.md)

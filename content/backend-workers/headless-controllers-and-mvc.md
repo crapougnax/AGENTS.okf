@@ -45,5 +45,5 @@ When building complex frontend applications (such as Quatrain Visual Studio or T
 - This decoupling allows the exact same business controller to be tested in pure Node/Bun environments without mounting DOM trees.
 
 ## 🔗 Related Units
-- [Quatrain Repository Pattern](/backend-workers/quatrain-repository-pattern.md)
-- [React Performance & Memoization](/frontend-ux/react-performance-and-memoization.md)
+- [Quatrain Repository Pattern](quatrain-repository-pattern.md)
+- [React Performance & Memoization](../frontend-ux/react-performance-and-memoization.md)

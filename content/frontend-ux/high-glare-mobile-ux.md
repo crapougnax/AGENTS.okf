@@ -33,5 +33,5 @@ Productivity applications operated outdoors, under direct sunlight, or in demand
 - **Metric Prominence:** Render primary real-time measurements in massive sizes (e.g. **`76px`**) with extra-thick weights (`900` / Black). Secondary metadata stays at normal weight (`400`/`500`) to keep the visual field uncluttered.
 
 ## 🔗 Related Units
-- [Contrast & Status Tokens](/frontend-ux/contrast-and-status-tokens.md)
-- [Static CSS & Interaction Hygiene](/frontend-ux/static-css-and-interaction-hygiene.md)
+- [Contrast & Status Tokens](contrast-and-status-tokens.md)
+- [Static CSS & Interaction Hygiene](static-css-and-interaction-hygiene.md)

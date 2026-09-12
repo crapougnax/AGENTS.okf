@@ -29,5 +29,5 @@ High-performance web applications maintain clean separation between layout styli
 - Native CSS execution runs on the browser's compositor thread, preserving smooth 60fps/120fps frame rates even during heavy JavaScript computations.
 
 ## 🔗 Related Units
-- [High-Glare Mobile UX](/frontend-ux/high-glare-mobile-ux.md)
-- [React Performance & Memoization](/frontend-ux/react-performance-and-memoization.md)
+- [High-Glare Mobile UX](high-glare-mobile-ux.md)
+- [React Performance & Memoization](react-performance-and-memoization.md)

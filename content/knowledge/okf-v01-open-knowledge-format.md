@@ -47,5 +47,5 @@ The Open Knowledge Format (OKF) is an open specification designed to make techni
 - AI agents begin by reading `index.md` and traverse down only to the specific files relevant to their current prompt, minimizing token waste.
 
 ## 🔗 Related Units
-- [Maintainability & 15-Year Horizon](/methodology/maintainability-15-year-horizon.md)
-- [Documentation & JSDoc Standards](/methodology/documentation-and-jsdoc.md)
+- [Maintainability & 15-Year Horizon](../methodology/maintainability-15-year-horizon.md)
+- [Documentation & JSDoc Standards](../methodology/documentation-and-jsdoc.md)

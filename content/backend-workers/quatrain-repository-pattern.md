@@ -65,5 +65,5 @@ Applications built on the Quatrain ecosystem declare domain entities using stron
 - **Soft Delete Handling:** Quatrain sets `status = 'deleted'` upon `.delete()`. When running manual raw queries outside the repository, explicitly filter out deleted items (`filters: { 'status:neq': 'deleted' }`).
 
 ## 🔗 Related Units
-- [PostgreSQL DDL & Naming Standards](/backend-workers/postgresql-ddl-and-naming.md)
-- [Headless Controllers & MVC Separation](/backend-workers/headless-controllers-and-mvc.md)
+- [PostgreSQL DDL & Naming Standards](postgresql-ddl-and-naming.md)
+- [Headless Controllers & MVC Separation](headless-controllers-and-mvc.md)

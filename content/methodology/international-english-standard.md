@@ -36,5 +36,5 @@ The following elements **MUST** be written strictly in clear International Engli
 - If a technical choice or domain concept is unclear, stop, ask, and clarify with the user.
 
 ## 🔗 Related Units
-- [Documentation & JSDoc Standards](/methodology/documentation-and-jsdoc.md)
-- [Conventional Commits Protocol](/workflow/conventional-commits.md)
+- [Documentation & JSDoc Standards](documentation-and-jsdoc.md)
+- [Conventional Commits Protocol](../workflow/conventional-commits.md)

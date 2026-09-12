@@ -61,5 +61,5 @@ The AI agent **MUST STOP and request explicit human confirmation** before execut
    - Deleting remote branches or tags.
 
 ## 🔗 Related Units
-- [GitHub CLI Protocol](/workflow/github-cli-protocol.md)
-- [Kubernetes Manifests & Deployments](/infrastructure/k8s-manifests-and-deployments.md)
+- [GitHub CLI Protocol](../workflow/github-cli-protocol.md)
+- [Kubernetes Manifests & Deployments](k8s-manifests-and-deployments.md)

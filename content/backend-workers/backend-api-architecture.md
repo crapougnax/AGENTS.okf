@@ -46,6 +46,6 @@ HTTP error responses must always return a consistent JSON payload:
 ```
 
 ## 🔗 Related Units
-- [Strict Typing & Interfaces](/architecture/strict-typing-and-interfaces.md)
-- [PostgreSQL DDL & Naming Standards](/backend-workers/postgresql-ddl-and-naming.md)
-- [Background Workers & Triggers](/backend-workers/background-workers-and-triggers.md)
+- [Strict Typing & Interfaces](../architecture/strict-typing-and-interfaces.md)
+- [PostgreSQL DDL & Naming Standards](postgresql-ddl-and-naming.md)
+- [Background Workers & Triggers](background-workers-and-triggers.md)

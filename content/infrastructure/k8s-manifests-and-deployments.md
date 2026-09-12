@@ -47,6 +47,6 @@ In production Kubernetes environments, microservices are separated into distinct
 - Inject non-sensitive environment variables via `ConfigMapKeyRef` and sensitive tokens via `SecretKeyRef`.
 
 ## 🔗 Related Units
-- [Backend API Architecture](/backend-workers/backend-api-architecture.md)
-- [Background Workers & Triggers](/backend-workers/background-workers-and-triggers.md)
-- [Multi-Cloud K8s & Terraform IaC](/infrastructure/k8s-multi-cloud-iac.md)
+- [Backend API Architecture](../backend-workers/backend-api-architecture.md)
+- [Background Workers & Triggers](../backend-workers/background-workers-and-triggers.md)
+- [Multi-Cloud K8s & Terraform IaC](k8s-multi-cloud-iac.md)

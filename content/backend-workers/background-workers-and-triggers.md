@@ -35,6 +35,6 @@ Heavy tasks, notifications, media transcoding, and cross-system webhooks must ex
 - Expose a lightweight HTTP health/liveness probe (`/healthz`) so orchestrators (Kubernetes) can monitor worker liveness.
 
 ## 🔗 Related Units
-- [Queue & Event Streaming](/architecture/queue-and-event-streaming.md)
-- [Backend API Architecture](/backend-workers/backend-api-architecture.md)
-- [Kubernetes Manifests & Deployments](/infrastructure/k8s-manifests-and-deployments.md)
+- [Queue & Event Streaming](../architecture/queue-and-event-streaming.md)
+- [Backend API Architecture](backend-api-architecture.md)
+- [Kubernetes Manifests & Deployments](../infrastructure/k8s-manifests-and-deployments.md)

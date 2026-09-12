@@ -42,6 +42,6 @@ git push origin main --tags
 - Dist-tags must be isolated per package identifier and never applied globally across unrelated monorepo packages.
 
 ## 🔗 Related Units
-- [GitFlow Protocol](/workflow/gitflow-protocol.md)
-- [QA Preview Environments](/workflow/qa-preview-environments.md)
-- [ArgoCD GitOps & Image Updater](/infrastructure/argocd-gitops-and-updater.md)
+- [GitFlow Protocol](gitflow-protocol.md)
+- [QA Preview Environments](qa-preview-environments.md)
+- [ArgoCD GitOps & Image Updater](../infrastructure/argocd-gitops-and-updater.md)
