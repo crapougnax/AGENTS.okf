@@ -26,8 +26,8 @@ Asynchronous communication between microservices, background processors, and tel
 ### 2. Event Consumption via `queue.listen()`
 - Subscribe to topic streams directly using the standard `queue.listen()` signature without building redundant intermediate wrapper classes:
   ```typescript
-  import { MosquittoQueueAdapter } from '@quatrain/queue-mosquitto';
-  import { Queue } from '@quatrain/log';
+  import { MosquittoQueueAdapter } from '@quatrain/queue-mqtt';
+  import { Queue } from '@quatrain/queue';
 
   const queue = new MosquittoQueueAdapter({
     url: process.env.MQTT_BROKER_URL!,
