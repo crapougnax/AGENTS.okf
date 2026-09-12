@@ -87,7 +87,7 @@ Add a lightweight `AGENTS.md` at the project root pointing to this local or remo
 ```markdown
 # Agent Guidelines Pointer
 This project adheres to the standards defined in AGENTS.okf.
-See root index: [AGENTS.okf Index](file:///Users/crapougnax/CODE/CRAPOUGNAX/AGENTS.okf/content/index.md)
+See root index: [AGENTS.okf Index](content/index.md)
 Load only relevant atomic documents on demand.
 ```
 
