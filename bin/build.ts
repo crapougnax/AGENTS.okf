@@ -99,9 +99,16 @@ const CATEGORIES: CategorySpec[] = [
       "argocd-gitops-and-updater.md",
       "operational-permissions-matrix.md",
     ],
+  },  {
+    name: "7. Cybersecurity, Threat Defense & Pentesting",
+    dir: "cybersecurity",
+    files: [
+      "pentesting-and-security-validation.md",
+      "crowdsec-security-architecture.md",
+    ],
   },
   {
-    name: "7. IoT, Embedded & LoRaWAN",
+    name: "8. IoT, Embedded & LoRaWAN",
     dir: "iot-embedded",
     files: [
       "embedded-cpp-standards.md",

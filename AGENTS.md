@@ -77,6 +77,7 @@ To maximize velocity without risking accidental outages or regressions, the AI a
 | **Operational Command Permissions** | [Operational Permissions Matrix](content/infrastructure/operational-permissions-matrix.md) |
 | **Secrets, `.env` files, or ConfigMaps** | [Secrets & Environment Variable Management](content/architecture/secrets-and-env-management.md) |
 | **Pentesting, Security Tests & VPN Rules** | [Security Testing & Pentesting Protocol](content/cybersecurity/pentesting-and-security-validation.md) |
+| **CrowdSec, Traefik Bouncer & Cyberdefense** | [CrowdSec Architecture & Bouncer](content/cybersecurity/crowdsec-security-architecture.md) |
 
 ---
 
