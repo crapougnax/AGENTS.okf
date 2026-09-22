@@ -111,7 +111,7 @@ const CATEGORIES: CategorySpec[] = [
     ],
   },
   {
-    name: "8. Knowledge & Documentation Standards",
+    name: "9. Knowledge & Documentation Standards",
     dir: "knowledge",
     files: ["okf-v01-open-knowledge-format.md"],
   },
