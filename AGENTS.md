@@ -21,6 +21,7 @@ This repository organizes development standards, architectural patterns, and Git
      - [Backend & Workers](content/backend-workers/index.md) (Express REST, api-triggers, Quatrain repository, PostgreSQL DDL, headless MVC)
      - [Frontend & UX Design System](content/frontend-ux/index.md) (High-glare mobile UX, contrast tokens, static CSS, React memo)
      - [Infrastructure & Deployment](content/infrastructure/index.md) (Containerfile, Docker Compose, K8s manifests, Terraform, ArgoCD, permissions)
+      - [Cybersecurity & Threat Defense](content/cybersecurity/index.md) (Mandatory VPN for pentests, anti-DDoS, CrowdSec, rate-limiting)
      - [Knowledge Standards](content/knowledge/index.md) (OKF v0.1 specification)
   3. Load **ONLY** the specific atomic document(s) matching your active task.
 
@@ -75,6 +76,7 @@ To maximize velocity without risking accidental outages or regressions, the AI a
 | **Multi-Cloud IaC, Traefik & TLS** | [Multi-Cloud K8s & Terraform IaC](content/infrastructure/k8s-multi-cloud-iac.md) |
 | **Operational Command Permissions** | [Operational Permissions Matrix](content/infrastructure/operational-permissions-matrix.md) |
 | **Secrets, `.env` files, or ConfigMaps** | [Secrets & Environment Variable Management](content/architecture/secrets-and-env-management.md) |
+| **Pentesting, Security Tests & VPN Rules** | [Security Testing & Pentesting Protocol](content/cybersecurity/pentesting-and-security-validation.md) |
 
 ---
 
