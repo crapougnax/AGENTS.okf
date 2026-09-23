@@ -1,11 +1,12 @@
 ---
 type: standard
 title: SemVer & Monorepo Tagging Standards
-description: Versioning and Git tag naming standards distinguishing standalone applications (vX.Y.Z) from multi-package monorepos (@scope/pkg@X.Y.Z).
+description: Versioning and Git tag naming standards distinguishing standalone applications (vX.Y.Z) from multi-package monorepos (independent SemVer on registries, temporal CalVer vYYYY.MM.DD on main).
 tags:
   - git
   - semver
   - monorepo
+  - calver
   - release
   - tags
 timestamp: 2026-09-12T05:00:00.000Z
@@ -28,12 +29,31 @@ git push origin main --tags
 ```
 Automated tools (like ArgoCD Image Updater or GitHub Actions release workflows) track this semver pattern on `main`.
 
-### 2. Multi-Package Monorepos (Mandatory Scoped Tags)
-To prevent tag namespace collisions across independent packages within a monorepo, Git tags **MUST** explicitly declare the package scope and name:
+### 2. Multi-Package Monorepos (Dual Tagging Strategy)
+In a monorepo containing multiple packages, each package evolves independently at its own rhythm (e.g. `@quatrain/core@1.2.19`, `@quatrain/config@1.0.1`). Consequently, no single package SemVer can represent the monorepo release as a whole.
+
+A two-tier tagging strategy is strictly applied:
+
+#### A. Git Repository Level on `main`: Temporal Tags (CalVer)
+To represent the global snapshot and state of all packages at release time, Git repository releases on `main` **MUST** use temporal calendar versioning (**CalVer**):
 ```bash
-# Format: @<scope>/<package-name>@<version> (or <package-name>@<version>)
-git tag -a @quatrain/auth-rbac@1.0.0 -m "Release @quatrain/auth-rbac@1.0.0"
-git tag -a @quatrain/core@1.2.4 -m "Release @quatrain/core@1.2.4"
+# Format: vYYYY.MM.DD (e.g. v2026.09.23)
+git tag -a v2026.09.23 -m "Release v2026.09.23"
+git push origin main --tags
+```
+- **Same-Day Disambiguation**: If multiple releases occur within the same UTC calendar day, an incremental counter is appended: `vYYYY.MM.DD.1`, `vYYYY.MM.DD.2`, etc.
+- **Automated CI Generation**: CI pipelines publishing stable packages on `main` automatically compute and push this temporal tag upon successful publication.
+
+#### B. Package Registry Level (NPM / GitHub Packages): Independent SemVer
+Each individual package retains its own strict SemVer lifecycle in `package.json`:
+- Consumers declare standard SemVer ranges (`^1.2.0`, `^1.0.0`) without disruption.
+- Internal monorepo cross-dependencies use `workspace:*` during development and are automatically pinned to their respective published SemVer in tarballs.
+
+#### C. Optional Granular Scoped Tags
+When a granular Git pointer to an individual package release is required, scoped Git tags remain available:
+```bash
+# Format: @<scope>/<package-name>@<version>
+git tag -a @quatrain/core@1.2.19 -m "Release @quatrain/core@1.2.19"
 git push origin main --tags
 ```
 
