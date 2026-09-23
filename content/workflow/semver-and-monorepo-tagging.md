@@ -37,8 +37,12 @@ git tag -a @quatrain/core@1.2.4 -m "Release @quatrain/core@1.2.4"
 git push origin main --tags
 ```
 
-### 3. Registry Dist-Tags
-- Package managers (NPM, GitHub Packages) distribute releases under specific dist-tags (`latest`, `beta`, `latest-dev`, `prXX`).
+### 3. Registry Dist-Tags & Pre-Release Lifecycle
+- Package managers (NPM, GitHub Packages) distribute releases under standard ecosystem dist-tags:
+  - **`latest`**: Production stable releases issued strictly from `main` (e.g. `@quatrain/core@1.2.20`).
+  - **`beta`**: Active integration pre-releases issued strictly from `develop`. Every package published from `develop` **MUST** carry a SemVer pre-release mention (`-beta.N`, e.g. `@quatrain/core@1.2.20-beta.0`, incrementing to `-beta.1` on subsequent updates until merged to `main`).
+  - **`prXX`**: Ephemeral on-demand QA preview releases generated from Pull Requests.
+- Non-standard tags (such as `latest-dev`) are strictly avoided in favor of ecosystem-standard `beta`.
 - Dist-tags must be isolated per package identifier and never applied globally across unrelated monorepo packages.
 
 ### 4. Version Increment Decision Matrix
