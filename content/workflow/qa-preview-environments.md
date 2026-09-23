@@ -24,9 +24,8 @@ Applying `qa:preview` leverages shared composite GitHub Actions (e.g. from `Quat
 ```mermaid
 flowchart TD
     PR["PR with label 'qa:preview'"] --> Trigger{"Trigger Dispatch"}
-    Trigger -->|Web Application| Deploy["Build Image :prXX + Deploy ArgoCD App"]
+    Trigger -->|Web Application / Service| Deploy["Build Image :prXX + Deploy ArgoCD App"]
     Deploy --> URL["Route: https://<app>-prXX.<domain>"]
-    Trigger -->|Monorepo Package| Publish["Publish NPM @scope/pkg@prXX"]
     PR -->|PR Closed / Merged| Cleanup["ArgoCD Cascade Prune & Resource Teardown"]
 ```
 
@@ -35,12 +34,10 @@ flowchart TD
 - **Live Staging Comment:** Posts a sticky comment directly on the PR with the live URL. Automatically updates upon subsequent pushes to the feature branch.
 - **Automated Teardown:** When the PR is closed (whether merged or closed without merge), the cleanup action automatically deletes the ArgoCD application and cascade-prunes all associated Kubernetes pods, services, ingresses, and TLS certificates.
 
-### 2. Monorepo Packages
-- Publishes the changed packages to NPM and GitHub Packages with version suffix `-prXX` and dist-tag `prXX`.
-- Posts an installation snippet directly to the PR:
-  ```bash
-  yarn add @quatrain/core@pr25
-  ```
+### 2. Monorepo Packages (No NPM Publishing on PR)
+- Monorepo packages are **not** published to public package registries (`npmjs.org`) during Pull Requests to prevent registry clutter and avoid publishing untested code under ephemeral tags.
+- Quality gates and validation on PRs rely strictly on automated unit testing (`bun test` / `yarn test`), linting, type-checking, and SonarQube quality gates.
+- Shared pre-release validation occurs strictly via the official `beta` dist-tag upon merging into `develop`.
 
 ## 🔗 Related Units
 - [GitHub CLI Protocol](github-cli-protocol.md)

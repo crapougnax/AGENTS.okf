@@ -58,22 +58,22 @@ git push origin main --tags
 ```
 
 ### 3. Registry Dist-Tags & Pre-Release Lifecycle
-- Package managers (NPM, GitHub Packages) distribute releases under standard ecosystem dist-tags:
+- Package managers (NPM, GitHub Packages) distribute releases under strictly standardized ecosystem dist-tags:
   - **`latest`**: Production stable releases issued strictly from `main` (e.g. `@quatrain/core@1.2.20`).
   - **`beta`**: Active integration pre-releases issued strictly from `develop`. Every package published from `develop` **MUST** carry a SemVer pre-release mention (`-beta.N`, e.g. `@quatrain/core@1.2.20-beta.0`, incrementing to `-beta.1` on subsequent updates until merged to `main`).
-  - **`prXX`**: Ephemeral on-demand QA preview releases generated from Pull Requests.
-- Non-standard tags (such as `latest-dev`) are strictly avoided in favor of ecosystem-standard `beta`.
+- **No Pull Request Package Publication**: Feature branches and Pull Requests **MUST NOT** publish ephemeral packages to public registries (`npmjs.org`). Package verification on PRs is conducted via local builds, linters, and unit tests; shared pre-release verification relies exclusively on `beta` published upon merging to `develop`.
+- Non-standard tags (such as `latest-dev`) are strictly retired in favor of ecosystem-standard `beta`.
 - Dist-tags must be isolated per package identifier and never applied globally across unrelated monorepo packages.
 
 ### 4. Version Increment Decision Matrix
 
 The version increment **MUST** be determined based on the nature of changes being released, not arbitrarily chosen:
 
-| Increment | Condition | Examples |
-| :--- | :--- | :--- |
-| **Patch** (`X.Y.Z+1`) | **Bugfixes only** — no new features, no API changes, no new files introducing new capabilities | Fix milestone sort order, fix regex false positive, correct typo in documentation |
-| **Minor** (`X.Y+1.0`) | **New features or capabilities** — new scripts, new governance fiches, new configuration options, extended functionality | Add new skill, add new OKF content fiche, extend validator to cover new file types |
-| **Major** (`X+1.0.0`) | **Breaking changes** — removed or renamed APIs, incompatible schema changes, dropped support for a major dependency | Restructure content directory hierarchy, change YAML frontmatter schema, rename mandatory fields |
+| Increment             | Condition                                                                                                                | Examples                                                                                         |
+| :----------------------| :-------------------------------------------------------------------------------------------------------------------------| :-------------------------------------------------------------------------------------------------|
+| **Patch** (`X.Y.Z+1`) | **Bugfixes only** — no new features, no API changes, no new files introducing new capabilities                           | Fix milestone sort order, fix regex false positive, correct typo in documentation                |
+| **Minor** (`X.Y+1.0`) | **New features or capabilities** — new scripts, new governance fiches, new configuration options, extended functionality | Add new skill, add new OKF content fiche, extend validator to cover new file types               |
+| **Major** (`X+1.0.0`) | **Breaking changes** — removed or renamed APIs, incompatible schema changes, dropped support for a major dependency      | Restructure content directory hierarchy, change YAML frontmatter schema, rename mandatory fields |
 
 > [!IMPORTANT]
 > **When in doubt, always ask the user.** An AI agent MUST NOT unilaterally decide between minor and major bumps. Present the changelog summary and ask the user to confirm the appropriate increment level before tagging.
