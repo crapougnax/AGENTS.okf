@@ -10,3 +10,4 @@ This category specifies container standards, Docker Compose recipes, Kubernetes 
 * [Multi-Cloud K8s & Terraform IaC (Tycho Standards)](k8s-multi-cloud-iac.md) - Modular Terraform, Traefik v3 HTTP-01 pass-through, and isolated domain certificates.
 * [ArgoCD GitOps & Image Updater Automation](argocd-gitops-and-updater.md) - Continuous delivery architecture tracking semver releases across staging and production.
 * [Operational Permissions Matrix (Autonomous vs Gated Actions)](operational-permissions-matrix.md) - Clear demarcation between safe read-only diagnostics and gated destructive actions.
+* [Sovereign Forge Lifecycle & CRA Patch Compliance](sovereign-forge-and-cra-lifecycle.md) - Strict sequential upgrade paths, zero EOL tolerance, and CRA compliance for developer forges.
