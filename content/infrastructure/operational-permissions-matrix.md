@@ -159,9 +159,16 @@ The agent **MUST STOP and request explicit human confirmation** before executing
 - **Merging Pull Requests**: Merging PRs into `develop` or `main` remains exclusively under human discretion.
 - Deleting remote branches or remote tags (`git push origin --delete <branch|tag>`).
 
+### 5. Penetration Testing & Attack Simulations
+- **Mandatory VPN Requirement:** NEVER execute pentests, vulnerability scanning, load/DDoS stress testing, or brute-force validation using the local office or developer network IP address.
+- **Dedicated Tunnel / VPN:** All penetration and security validation traffic MUST be routed through a designated external VPN or disposable test runner to prevent catastrophic IP bans from CrowdSec, fail2ban, or cloud WAFs from blacklisting the local infrastructure.
+- 👉 *See full protocol:* [Security Testing, Pentesting & Rate-Limit Validation Protocol](../cybersecurity/pentesting-and-security-validation.md)
+
 ---
 
 ## 🔗 Related Units
 - [GitHub CLI Protocol](../workflow/github-cli-protocol.md)
 - [Kubernetes Manifests & Deployments](k8s-manifests-and-deployments.md)
 - [Multi-Cloud K8s & Terraform IaC](k8s-multi-cloud-iac.md)
+- [Security Testing & Pentesting Protocol](../cybersecurity/pentesting-and-security-validation.md)
+
