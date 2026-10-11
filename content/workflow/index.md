@@ -11,3 +11,4 @@ This category defines the GitFlow branching lifecycle, Pull Request protocols, c
 * [SemVer & Monorepo Tagging Standards](semver-and-monorepo-tagging.md) - Scoped monorepo tag syntax (@scope/pkg@X.Y.Z) versus standalone app tags (vX.Y.Z).
 * [On-Demand QA Preview Environments (qa:preview)](qa-preview-environments.md) - Automated ephemeral staging deployments and preview NPM package publishing.
 * [Three-Tier Forking Model for Open Source & Enterprise](three-tier-forking-model.md) - Architecture separating public upstream, personal contributor fork, and private enterprise fork.
+* [Public Repository Confidentiality & Metadata Anonymization](public-repository-confidentiality.md) - Mandatory hygiene rules prohibiting sensitive proper names, customer/partner names, event venues, and commercial brands in public Git branches, tickets, commit messages, and metadata.

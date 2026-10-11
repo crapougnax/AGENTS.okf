@@ -50,6 +50,7 @@ const CATEGORIES: CategorySpec[] = [
       "semver-and-monorepo-tagging.md",
       "qa-preview-environments.md",
       "three-tier-forking-model.md",
+      "public-repository-confidentiality.md",
     ],
   },
   {
@@ -203,6 +204,7 @@ const TOPIC_MAP: Array<{ task: string; pattern: string; label: string }> = [
   { task: "Embedded C++ Firmware", pattern: "embedded-cpp-standards.md", label: "Embedded C++ Standards" },
   { task: "LoRaWAN Protocol & Payloads", pattern: "lorawan-protocol-and-payload.md", label: "LoRaWAN Protocol & Payload" },
   { task: "IoT Telemetry Ingestion", pattern: "telemetry-ingestion-pipeline.md", label: "Telemetry Ingestion Pipeline" },
+  { task: "Public Repositories & Confidentiality", pattern: "public-repository-confidentiality.md", label: "Public Repo Confidentiality" },
 ];
 
 /**
