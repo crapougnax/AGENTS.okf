@@ -12,18 +12,23 @@ This repository organizes development standards, architectural patterns, and Git
 
 ### Instruction for AI Agents:
 - **Do not ingest all files into context at once.** Loading all rules exhausts context tokens and blurs domain focus.
-- **Progressive Discovery:**
-  1. Start by checking the root index: [Root Knowledge Index](content/index.md)
-  2. Navigate into the relevant category index:
+- **The Three Foundational Pillars (see [RFC-002](docs/rfcs/rfc-002-three-pillar-content-restructuring.md)):**
+  1. **🏭 Usine Logicielle (Software Factory & Development)**:
      - [Methodology & Quality](content/methodology/index.md) (15-year horizon, TDD, JSDoc, English, SonarQube)
-     - [Workflow & GitFlow](content/workflow/index.md) (GitFlow develop/main, commits, gh CLI, SemVer tags, preview QA)
+     - [Workflow & GitFlow](content/workflow/index.md) (GitFlow develop/main, commits, gh CLI, SemVer tags, preview QA, public repo confidentiality)
      - [Architecture & Patterns](content/architecture/index.md) (DDD, strict typing, fail-fast, state machines, queues, logging, local-first)
      - [Backend & Workers](content/backend-workers/index.md) (Express REST, api-triggers, Quatrain repository, PostgreSQL DDL, headless MVC)
      - [Frontend & UX Design System](content/frontend-ux/index.md) (High-glare mobile UX, contrast tokens, static CSS, React memo)
-     - [Infrastructure & Deployment](content/infrastructure/index.md) (Containerfile, Docker Compose, K8s manifests, Terraform, ArgoCD, permissions)
-      - [Cybersecurity & Threat Defense](content/cybersecurity/index.md) (Mandatory VPN for pentests, anti-DDoS, CrowdSec, rate-limiting)
+     - [IoT & Embedded Systems](content/iot-embedded/index.md) (Embedded C++, LoRaWAN payload, telemetry ingestion)
      - [Knowledge Standards](content/knowledge/index.md) (OKF v0.1 specification)
-  3. Load **ONLY** the specific atomic document(s) matching your active task.
+  2. **🚀 Déploiement (Infrastructure & Operations)**:
+     - [Infrastructure & Deployment](content/infrastructure/index.md) (Containerfile, Docker Compose, K8s manifests, Terraform, ArgoCD, permissions)
+  3. **🛡️ Cybersécurité (Security & Threat Defense)**:
+     - [Cybersecurity & Threat Defense](content/cybersecurity/index.md) (Mandatory VPN for pentests, anti-DDoS, CrowdSec, bouncers, rate-limiting)
+- **Progressive Discovery:**
+  1. Start by checking the root index: [Root Knowledge Index](content/index.md)
+  2. Identify the matching pillar and category index above.
+  3. Load **ONLY** the specific atomic document(s) matching your active task to preserve context window.
 
 ---
 

@@ -227,6 +227,25 @@ function resolveTopicPath(
   return `file://${repoRoot}/content/${match.categoryDir}/${match.file}`;
 }
 
+/**
+ * Three Foundational Pillars grouping categories across the knowledge base.
+ * (Defined in RFC-002: docs/rfcs/rfc-002-three-pillar-content-restructuring.md)
+ */
+const PILLARS: Array<{ title: string; dirs: string[] }> = [
+  {
+    title: "🏭 I. Usine Logicielle (Software Factory & Development)",
+    dirs: ["methodology", "architecture", "workflow", "backend-workers", "frontend-ux", "iot-embedded", "knowledge"],
+  },
+  {
+    title: "🚀 II. Déploiement (Infrastructure & Operations)",
+    dirs: ["infrastructure"],
+  },
+  {
+    title: "🛡️ III. Cybersécurité (Security & Threat Defense)",
+    dirs: ["cybersecurity"],
+  },
+];
+
 // ---------------------------------------------------------------------------
 // Consolidated markdown (legacy, used by sync-gist)
 // ---------------------------------------------------------------------------
@@ -286,7 +305,7 @@ AI coding agents **MUST NOT** make blind assumptions about coding conventions, i
 
 ### Instructions for AI Agents:
 1. **Consult Before Acting:** Before creating files, writing tests, refactoring, modifying schemas, or running deployment commands, you **MUST proactively inspect** the matching atomic OKF rule unit.
-2. **Start at the Index:** Use [Root Rules Index](file://${repoRoot}/content/index.md) to locate the relevant category:`);
+2. **Start at the Index:** Use [Root Rules Index](file://${repoRoot}/content/index.md) to locate the relevant category across the 3 Foundational Macro-Pillars (see [RFC-002](file://${repoRoot}/docs/rfcs/rfc-002-three-pillar-content-restructuring.md)):`);
 
   // Build category index — group fiches by category
   const categories = new Map<string, { dir: string; fiches: DiscoveredFiche[] }>();
@@ -297,10 +316,17 @@ AI coding agents **MUST NOT** make blind assumptions about coding conventions, i
     categories.get(fiche.category)!.fiches.push(fiche);
   }
 
-  for (const [catName, { dir, fiches: catFiches }] of categories) {
-    const summary = catFiches.map((f) => f.title).slice(0, 4).join(", ");
-    const ellipsis = catFiches.length > 4 ? ", ..." : "";
-    lines.push(`   - [${catName}](file://${repoRoot}/content/${dir}/index.md) (${summary}${ellipsis})`);
+  for (const pillar of PILLARS) {
+    lines.push(`   - **${pillar.title}**:`);
+    for (const dir of pillar.dirs) {
+      for (const [catName, { dir: cDir, fiches: catFiches }] of categories) {
+        if (cDir === dir) {
+          const summary = catFiches.map((f) => f.title).slice(0, 3).join(", ");
+          const ellipsis = catFiches.length > 3 ? ", ..." : "";
+          lines.push(`     - [${catName}](file://${repoRoot}/content/${dir}/index.md) (${summary}${ellipsis})`);
+        }
+      }
+    }
   }
 
   lines.push(`3. **Context Economy:** Load **ONLY** the specific atomic document(s) matching your immediate task to preserve context window.
@@ -392,7 +418,7 @@ AI coding agents **MUST NOT** make blind assumptions about coding conventions, i
 
 ### Instructions for AI Agents:
 1. **Consult Before Acting:** Before creating files, writing tests, refactoring, modifying schemas, or running deployment commands, you **MUST proactively read** the matching atomic OKF rule unit using the \`Read\` tool or \`cat\`.
-2. **Start at the Index:** Read \`${repoRoot}/content/index.md\` to locate the relevant category:`);
+2. **Start at the Index:** Read \`${repoRoot}/content/index.md\` to locate the relevant category across the 3 Foundational Macro-Pillars (see \`${repoRoot}/docs/rfcs/rfc-002-three-pillar-content-restructuring.md\`):`);
 
   // Category index
   const categories = new Map<string, { dir: string; fiches: DiscoveredFiche[] }>();
@@ -403,10 +429,17 @@ AI coding agents **MUST NOT** make blind assumptions about coding conventions, i
     categories.get(fiche.category)!.fiches.push(fiche);
   }
 
-  for (const [catName, { dir, fiches: catFiches }] of categories) {
-    const summary = catFiches.map((f) => f.title).slice(0, 4).join(", ");
-    const ellipsis = catFiches.length > 4 ? ", ..." : "";
-    lines.push(`   - **${catName}**: \`${repoRoot}/content/${dir}/index.md\` (${summary}${ellipsis})`);
+  for (const pillar of PILLARS) {
+    lines.push(`   - **${pillar.title}**:`);
+    for (const dir of pillar.dirs) {
+      for (const [catName, { dir: cDir, fiches: catFiches }] of categories) {
+        if (cDir === dir) {
+          const summary = catFiches.map((f) => f.title).slice(0, 3).join(", ");
+          const ellipsis = catFiches.length > 3 ? ", ..." : "";
+          lines.push(`     - **${catName}**: \`${repoRoot}/content/${dir}/index.md\` (${summary}${ellipsis})`);
+        }
+      }
+    }
   }
 
   lines.push(`3. **Context Economy:** Load **ONLY** the specific atomic document(s) matching your immediate task to preserve context window.
