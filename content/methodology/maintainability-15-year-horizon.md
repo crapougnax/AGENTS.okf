@@ -30,7 +30,12 @@ Software architectures developed across the ecosystem are built to endure. Code 
 - Every function, model, and script must be designed so that another engineer or open-source contributor can understand its purpose and mechanics without asking the original author.
 - Write self-documenting code with explicit variable naming, strong typing, and comprehensive JSDoc.
 
+### 4. Code Serves Data (Never Substitute Missing Data with Hacks)
+- The code serves the business data; it never substitutes for it.
+- When business data or columns are missing, halt immediately, analyze the domain gap, and propose a database schema migration (DDL) or backfill script. Never hardcode missing business entities or guess them via heuristics in code. See [Code Serves Data — Zero Hardcoded Business Data](code-serves-data-integrity.md).
+
 ## 🔗 Related Units
+- [Code Serves Data — Zero Hardcoded Business Data](code-serves-data-integrity.md)
 - [Documentation & JSDoc Standards](documentation-and-jsdoc.md)
 - [International English Standard](international-english-standard.md)
 - [Strict Typing & Interfaces](../architecture/strict-typing-and-interfaces.md)

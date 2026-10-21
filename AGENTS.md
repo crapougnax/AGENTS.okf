@@ -69,6 +69,7 @@ To maximize velocity without risking accidental outages or regressions, the AI a
 | **Git Branching, PRs, or Releases** | [GitFlow Protocol](content/workflow/gitflow-protocol.md) & [GitHub CLI Protocol](content/workflow/github-cli-protocol.md) |
 | **Commit Messages & Issue Linking** | [Conventional Commits](content/workflow/conventional-commits.md) |
 | **SemVer Tagging & Monorepo Releases** | [SemVer & Monorepo Tagging](content/workflow/semver-and-monorepo-tagging.md) |
+| **Missing Business Data, Schemas & Hacks** | [Code Serves Data (Zero Hacks)](content/methodology/code-serves-data-integrity.md) & [15-Year Maintainability](content/methodology/maintainability-15-year-horizon.md) |
 | **Defining Entities & Repositories** | [Quatrain Repository Pattern](content/backend-workers/quatrain-repository-pattern.md) |
 | **Database DDL Migrations & Naming** | [PostgreSQL DDL & Naming](content/backend-workers/postgresql-ddl-and-naming.md) |
 | **Backend REST APIs or Middlewares** | [Backend API Architecture](content/backend-workers/backend-api-architecture.md) |
