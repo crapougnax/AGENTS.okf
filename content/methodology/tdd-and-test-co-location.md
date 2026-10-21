@@ -49,6 +49,12 @@ Reliability is non-negotiable. Code that is not verified by automated tests does
   jest.config.js
   ```
 
+### 5. Dynamic Test Artifacts & Fakers (Zero Real Data)
+- **Zero Real-World Entities:** Tests and fixtures must never embed real client names, production device serials, live EUIs, or production UUIDs.
+- **Dynamic Fakers Mandatory:** Systematically generate synthetic test entities using domain fakers (`fakeProbe()`, `fakeGateway()`, `fakeDevEUI()`) that strictly adhere to domain rules, accepted values, and valid ranges. See [Dynamic Test Data & Domain Fakers](dynamic-test-data-and-fakers.md).
+
 ## 🔗 Related Units
+- [Dynamic Test Data & Domain Fakers](dynamic-test-data-and-fakers.md)
+- [Code Serves Data — Zero Hardcoded Business Data](code-serves-data-integrity.md)
 - [SonarQube Quality Gates](sonarqube-quality-gates.md)
 - [Strict Typing & Interfaces](../architecture/strict-typing-and-interfaces.md)

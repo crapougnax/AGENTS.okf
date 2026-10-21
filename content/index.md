@@ -8,7 +8,7 @@ All standards are organized into **Three Foundational Pillars**:
 
 ## 🏭 I. Usine Logicielle (Software Factory & Development)
 
-* [methodology](methodology/index.md) - Software engineering philosophy, 15-year maintainability horizon, Code Serves Data (zero hardcoded missing data), TDD & test co-location, strict JSDoc, International English standard, and SonarQube quality gates.
+* [methodology](methodology/index.md) - Software engineering philosophy, 15-year maintainability horizon, Code Serves Data (zero hardcoded missing data), dynamic test fakers, TDD & test co-location, strict JSDoc, International English standard, and SonarQube quality gates.
 * [architecture](architecture/index.md) - Domain-Driven Design (DDD), strict TypeScript (zero `as any`), fail-fast contracts, state machines, dependency injection, `@quatrain/queue-*` message bus, structured logging, secrets management, and local-first architecture.
 * [workflow](workflow/index.md) - GitFlow protocol (develop / main / semver), branch isolation, conventional commits, strict GitHub CLI (`gh`) usage, ephemeral QA preview environments, public repo confidentiality, and 3-tier forking model.
 * [backend-workers](backend-workers/index.md) - Express REST API architecture, asynchronous background workers (`api-triggers`), Quatrain Repository pattern (`.TYPE`, `Core.addClass`), strict PostgreSQL lowercase DDL, and headless MVC controllers.
