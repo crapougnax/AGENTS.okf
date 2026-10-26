@@ -200,6 +200,7 @@ const TOPIC_MAP: Array<{ task: string; pattern: string; label: string }> = [
   { task: "Backend REST APIs or Middlewares", pattern: "backend-api-architecture.md", label: "Backend API Architecture" },
   { task: "Asynchronous Event Processing", pattern: "background-workers-and-triggers.md", label: "Background Workers & Triggers" },
   { task: "Asynchronous Event Processing", pattern: "queue-and-event-streaming.md", label: "Queue Streaming" },
+  { task: "Writing Any Code (style, braces)", pattern: "code-style-and-control-flow.md", label: "Code Style & Control Flow Blocks" },
   { task: "Logging & Diagnostics", pattern: "structured-logging.md", label: "Structured Logging Standards" },
   { task: "Mobile UI, Sunlight, Contrast or CSS", pattern: "high-glare-mobile-ux.md", label: "High-Glare Mobile UX" },
   { task: "Mobile UI, Sunlight, Contrast or CSS", pattern: "static-css-and-interaction-hygiene.md", label: "Static CSS Hygiene" },
