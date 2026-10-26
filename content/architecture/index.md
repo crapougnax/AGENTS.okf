@@ -10,6 +10,7 @@ This category covers structural software design patterns, typing standards, fail
 * [Secrets & Environment Variable Management](secrets-and-env-management.md) - .env file conventions, zero secret leakage in logs, bootstrap validation, and Kubernetes secrets hygiene.
 * [Finite State Machines & BPM Modeling](finite-state-machines.md) - Declarative process lifecycles and business process state machines.
 * [Dependency Injection (DI) & Maximal Factorization (DRY)](dependency-injection-and-dry.md) - Decoupling logic from adapters and rigorous elimination of code duplication.
+* [Generic Systems & Integrators](generic-systems-and-integrators.md) - Detect a generic system developed alongside its first integrator, model both, route every requirement and keep the generic side free of integrator vocabulary and data.
 * [Queue & Event Streaming Architecture (@quatrain/queue-*)](queue-and-event-streaming.md) - Asynchronous event buses using AbstractQueueAdapter and queue.listen().
 * [Structured Logging Standards (Backend & Queue Loggers)](structured-logging.md) - Structured log levels, deprecation of raw console.log, and metadata payload hygiene.
 * [Local-First & 0ms Latency Data Architecture](local-first-architecture.md) - Local IndexedDB/SQLite storage with asynchronous background synchronization.

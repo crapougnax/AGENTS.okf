@@ -29,6 +29,7 @@ This repository organizes development standards, architectural patterns, and Git
   1. Start by checking the root index: [Root Knowledge Index](content/index.md)
   2. Identify the matching pillar and category index above.
   3. Load **ONLY** the specific atomic document(s) matching your active task to preserve context window.
+- **System Boundary Check (always on):** When two differently named systems are developed together (different repositories, namespaces or licences; one consumes the other; the user speaks of a generic package, engine, integration or use case), load [Generic Systems & Integrators](content/architecture/generic-systems-and-integrators.md) **before the first edit** and write its System Map. Never let the integrator's vocabulary or data enter the generic system.
 
 ---
 
@@ -83,6 +84,7 @@ To maximize velocity without risking accidental outages or regressions, the AI a
 | **Secrets, `.env` files, or ConfigMaps** | [Secrets & Environment Variable Management](content/architecture/secrets-and-env-management.md) |
 | **Pentesting, Security Tests & VPN Rules** | [Security Testing & Pentesting Protocol](content/cybersecurity/pentesting-and-security-validation.md) |
 | **CrowdSec, Traefik Bouncer & Cyberdefense** | [CrowdSec Architecture & Bouncer](content/cybersecurity/crowdsec-security-architecture.md) |
+| **Generic Package or Engine Developed with Its First Integrator** | [Generic Systems & Integrators](content/architecture/generic-systems-and-integrators.md) |
 
 ---
 
@@ -97,6 +99,10 @@ Add a lightweight `AGENTS.md` at the project root pointing to this local or remo
 This project adheres to the standards defined in AGENTS.okf.
 See root index: [AGENTS.okf Index](content/index.md)
 Load only relevant atomic documents on demand.
+
+System role: generic provider | integrator | application
+# generic provider: list the owned vocabulary and the neutral example domain; never name an integrator.
+# integrator: list the generic systems consumed and where the vocabulary mapping lives.
 ```
 
 ### Option B: Git Submodule
