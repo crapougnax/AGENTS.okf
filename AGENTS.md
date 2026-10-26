@@ -73,6 +73,7 @@ To maximize velocity without risking accidental outages or regressions, the AI a
 | **Database DDL Migrations & Naming** | [PostgreSQL DDL & Naming](content/backend-workers/postgresql-ddl-and-naming.md) |
 | **Backend REST APIs or Middlewares** | [Backend API Architecture](content/backend-workers/backend-api-architecture.md) |
 | **Asynchronous Event Processing** | [Background Workers & Triggers](content/backend-workers/background-workers-and-triggers.md) & [Queue Streaming](content/architecture/queue-and-event-streaming.md) |
+| **Writing Any Code (style, braces)** | [Code Style & Control Flow Blocks](content/methodology/code-style-and-control-flow.md) |
 | **Logging & Diagnostics** | [Structured Logging Standards](content/architecture/structured-logging.md) |
 | **Mobile UI, Sunlight, Contrast or CSS** | [High-Glare Mobile UX](content/frontend-ux/high-glare-mobile-ux.md) & [Static CSS Hygiene](content/frontend-ux/static-css-and-interaction-hygiene.md) |
 | **Container Images & Podman** | [Containerfile & Podman Standards](content/infrastructure/containerfile-and-podman.md) |
