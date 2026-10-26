@@ -213,6 +213,7 @@ const TOPIC_MAP: Array<{ task: string; pattern: string; label: string }> = [
   { task: "LoRaWAN Protocol & Payloads", pattern: "lorawan-protocol-and-payload.md", label: "LoRaWAN Protocol & Payload" },
   { task: "IoT Telemetry Ingestion", pattern: "telemetry-ingestion-pipeline.md", label: "Telemetry Ingestion Pipeline" },
   { task: "Public Repositories & Confidentiality", pattern: "public-repository-confidentiality.md", label: "Public Repo Confidentiality" },
+  { task: "Generic Package or Engine Developed with Its First Integrator", pattern: "generic-systems-and-integrators.md", label: "Generic Systems & Integrators" },
 ];
 
 /**
@@ -331,6 +332,7 @@ AI coding agents **MUST NOT** make blind assumptions about coding conventions, i
   }
 
   lines.push(`3. **Context Economy:** Load **ONLY** the specific atomic document(s) matching your immediate task to preserve context window.
+4. **System Boundary Check:** When two differently named systems are developed together (different repositories, namespaces or licences; one consumes the other; the user speaks of a generic package, engine, integration or use case), load the *Generic Systems & Integrators* unit **before the first edit** and write its System Map. Never let the integrator's vocabulary or data enter the generic system.
 
 ---
 
@@ -444,6 +446,7 @@ AI coding agents **MUST NOT** make blind assumptions about coding conventions, i
   }
 
   lines.push(`3. **Context Economy:** Load **ONLY** the specific atomic document(s) matching your immediate task to preserve context window.
+4. **System Boundary Check:** When two differently named systems are developed together (different repositories, namespaces or licences; one consumes the other; the user speaks of a generic package, engine, integration or use case), load the *Generic Systems & Integrators* unit **before the first edit** and write its System Map. Never let the integrator's vocabulary or data enter the generic system.
 
 ---
 

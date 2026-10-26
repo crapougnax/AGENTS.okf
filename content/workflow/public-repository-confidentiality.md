@@ -28,9 +28,9 @@ Git branches, commit histories, GitHub issue titles, and Pull Request summaries 
 
 - **Branch Names (`git checkout -b`)**:
   - **Forbidden**: Never include client names, prospective partners, private event locations/venues (e.g. ministries, exhibitions, presidential palaces), internal code project names, or commercial brand names.
-    - ❌ `feat/elysee-demo-voice-mistral`
+    - ❌ `feat/ministry-demo-voice-vendorx`
     - ❌ `fix/client-acme-invoice-leak`
-    - ❌ `feat/total-iot-telemetry`
+    - ❌ `feat/bigcorp-iot-telemetry`
   - **Mandatory**: Use strictly functional, technical, and domain-agnostic capability names.
     - ✅ `feat/13-conversational-voice-assistant`
     - ✅ `fix/42-invoice-calculation-rounding`
@@ -52,13 +52,13 @@ Git branches, commit histories, GitHub issue titles, and Pull Request summaries 
 User-facing headers, HTML manifests, and client assets are exposed directly to the browser:
 
 - **Web Manifests & SEO Tags**:
-  - Files like `manifest.json`, `index.html`, and `<meta name="description">` must use brand-neutral, product-centric, or open-source descriptions (e.g. *"Assistant agronomique vocal souverain"*).
+  - Files like `manifest.json`, `index.html`, and `<meta name="description">` must use brand-neutral, product-centric, or open-source descriptions (e.g. *"Sovereign voice assistant"*).
   - Avoid binding public product descriptions to third-party vendor names or commercial partners without contractual authorization.
 
 - **UI Copy & Status Indicators**:
   - User interface components should rely on sovereign, functional phrasing:
-    - Prefer *"IA Souveraine"* or *"Modèle de langage"* over third-party commercial logos or brand names in status pills.
-    - Prefer *"Haute Définition"* or *"Synthèse standard"* over vendor-specific voice engines in settings toggles.
+    - Prefer *"Sovereign AI"* or *"Language model"* over third-party commercial logos or brand names in status pills.
+    - Prefer *"High definition"* or *"Standard synthesis"* over vendor-specific voice engines in settings toggles.
 
 ---
 
@@ -89,7 +89,9 @@ Before pushing code or publishing tickets to public repositories, the following 
 2. **Content & Asset Search**:
    Run regex searches for project codenames, client names, and unapproved brand references before opening a public Pull Request.
 3. **Automated Linter Gates**:
-   Integrate automated keyword and secret checks into repository test suites (`bun test`, `bun run validate`) to fail fast if proprietary terms are committed.
+   Run automated keyword and secret checks before every push to fail fast if proprietary terms are committed. Keep the keyword lists **outside** the public repository (private configuration, integrator CI or workstation hooks): a committed deny-list would itself disclose the names it protects.
+
+> Confidentiality hides *who* is involved; genericity keeps a shared system free of *what* one integrator needs. Both apply when a public generic system is developed alongside a private integrator: see [Generic Systems & Integrators](../architecture/generic-systems-and-integrators.md).
 
 ---
 
@@ -99,3 +101,4 @@ Before pushing code or publishing tickets to public repositories, the following 
 - [Conventional Commits & Atomic Commit Standards](conventional-commits.md)
 - [Branch Isolation & Topic Switch Protocol](branch-isolation-and-topic-switch.md)
 - [GitHub CLI Operations & Pull Request Protocol](github-cli-protocol.md)
+- [Generic Systems & Integrators](../architecture/generic-systems-and-integrators.md)

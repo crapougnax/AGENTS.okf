@@ -30,7 +30,12 @@ Applications must be decomposed into logical domain units representing cohesive 
 - Each domain concept owns its dedicated database tables and DDL migration scripts.
 - No shared ambiguous multi-tenant tables where domains overlap indiscriminately.
 
+### 4. Bounded Contexts Across Systems
+- The ubiquitous language of a system **stops at its boundary**. When a generic system is consumed by an integrator, each keeps its own vocabulary; the integrator translates between them in an anti-corruption layer on its side.
+- A business term of one integrator never becomes a type, field or path of a shared system. See [Generic Systems & Integrators](generic-systems-and-integrators.md).
+
 ## 🔗 Related Units
 - [Strict Typing & Interfaces](strict-typing-and-interfaces.md)
+- [Generic Systems & Integrators](generic-systems-and-integrators.md)
 - [PostgreSQL DDL & Naming Standards](../backend-workers/postgresql-ddl-and-naming.md)
 - [Quatrain Repository Pattern](../backend-workers/quatrain-repository-pattern.md)
