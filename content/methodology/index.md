@@ -10,4 +10,3 @@ This category outlines the fundamental philosophy, test-driven requirements, lan
 * [International English Communication Standard](international-english-standard.md) - Strict requirement mandating International English for all code symbols, comments, and commits.
 * [SonarQube Code Quality & Linter Compliance](sonarqube-quality-gates.md) - Static code analysis compliance: radix parsing, secure process execution, and accessibility rules.
 * [Code Style & Control Flow Blocks](code-style-and-control-flow.md) - Mandatory braces on every control-flow block, enforced by ESLint/Biome/clang-tidy.
-* [Generic Packages vs. Driving Use Cases](generic-packages-vs-use-cases.md) - Keep a generic package free of the vocabulary, data and assumptions of the use case that drives it.
