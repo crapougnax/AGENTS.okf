@@ -48,6 +48,7 @@ A shared cluster (platform) hosts several products (tenants). Each tenant must b
 - Document the contract in the platform (`docs/TENANTS.md`) and in the tenant README.
 
 ## 🔗 Related Units
+- [Production Change Impact Analysis & Staged Migration Protocol](production-change-impact-and-migration-protocol.md)
 - [SemVer & Monorepo Tagging](../workflow/semver-and-monorepo-tagging.md)
 - [QA Preview Environments](../workflow/qa-preview-environments.md)
 - [Kubernetes Manifests & Deployments](k8s-manifests-and-deployments.md)

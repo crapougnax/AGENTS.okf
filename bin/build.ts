@@ -99,6 +99,7 @@ const CATEGORIES: CategorySpec[] = [
       "k8s-multi-cloud-iac.md",
       "argocd-gitops-and-updater.md",
       "operational-permissions-matrix.md",
+      "production-change-impact-and-migration-protocol.md",
     ],
   },  {
     name: "7. Cybersecurity, Threat Defense & Pentesting",
@@ -208,6 +209,7 @@ const TOPIC_MAP: Array<{ task: string; pattern: string; label: string }> = [
   { task: "Local Stacks or On-Premise Compose", pattern: "docker-compose-deployment.md", label: "Docker Compose Recipes" },
   { task: "Kubernetes Workloads & Scaling", pattern: "k8s-manifests-and-deployments.md", label: "Kubernetes Manifests & Deployments" },
   { task: "Multi-Cloud IaC, Traefik & TLS", pattern: "k8s-multi-cloud-iac.md", label: "Multi-Cloud K8s & Terraform IaC" },
+  { task: "Infrastructure, GitOps or Network Migrations", pattern: "production-change-impact-and-migration-protocol.md", label: "Production Change Impact & Migration Protocol" },
   { task: "Operational Command Permissions", pattern: "operational-permissions-matrix.md", label: "Operational Permissions Matrix" },
   { task: "Embedded C++ Firmware", pattern: "embedded-cpp-standards.md", label: "Embedded C++ Standards" },
   { task: "LoRaWAN Protocol & Payloads", pattern: "lorawan-protocol-and-payload.md", label: "LoRaWAN Protocol & Payload" },

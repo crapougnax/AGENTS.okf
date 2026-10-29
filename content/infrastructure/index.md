@@ -10,3 +10,4 @@ This category specifies container standards, Docker Compose recipes, Kubernetes 
 * [Multi-Cloud K8s & Terraform IaC (Tycho Standards)](k8s-multi-cloud-iac.md) - Modular Terraform, Traefik v3 HTTP-01 pass-through, and isolated domain certificates.
 * [ArgoCD GitOps & Image Updater Automation](argocd-gitops-and-updater.md) - Continuous delivery architecture tracking semver releases across staging and production.
 * [Operational Permissions Matrix (Autonomous vs Gated Actions)](operational-permissions-matrix.md) - Clear demarcation between safe read-only diagnostics and gated destructive actions.
+* [Production Change Impact Analysis & Staged Migration Protocol](production-change-impact-and-migration-protocol.md) - Mandatory blast-radius analysis, stateful PVC/database safeguards, and step-by-step user-validated runbook before any infrastructure or GitOps migration.
